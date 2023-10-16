@@ -1,9 +1,10 @@
-package com.ProyectoIntegrador.Banco;
+package com.ProyectoIntegrador.Banco.model;
 
 import jakarta.persistence.*;
 
-import javax.annotation.processing.Generated;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
@@ -18,21 +19,16 @@ public class Cliente {
     private String apellido;
     @Column(name = "fechaNacimiento",nullable = false)
     private LocalDate fechaNacimiento;
-    @Column(name = "correo",nullable = false)
-    private String correo;
-    @Column(name = "ciudad")
-    private String ciudad;
 
     public Cliente(){
     }
 
-    public Cliente(long id, String nombre, String apellido, LocalDate fechaNacimiento, String correo, String ciudad) {
+    public Cliente(long id, String nombre, String apellido, LocalDate fechaNacimiento) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
-        this.correo = correo;
-        this.ciudad = ciudad;
+
     }
 
     @Override
@@ -42,8 +38,18 @@ public class Cliente {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
-                ", correo='" + correo + '\'' +
-                ", ciudad='" + ciudad + '\'' +
                 '}';
     }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "infoContacto_id")
+    private InfoContacto infoContacto;
+
+
+    @OneToMany(mappedBy = "cliente")
+    private List<CuentaBancaria> cuentas = new ArrayList<>();
+
+
+
+
 }
