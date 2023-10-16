@@ -1,6 +1,8 @@
 package com.example.banco.model;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "CuentaBancaria")
@@ -31,4 +33,7 @@ public class CuentaBancaria {
                 " , estado" + estado +
                 '}';
     }
+
+    @OneToMany(mappedBy = "cuentaBancaria", cascade = CascadeType.ALL)
+    private List<Bolsillo> bolsillos;
 }

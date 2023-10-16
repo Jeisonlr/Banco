@@ -35,4 +35,8 @@ public class Bolsillo {
                 ", nombreBolsillo='" + nombreBolsillo + '\'' +
                 '}';
     }
+
+    @ManyToOne
+    @JoinColumn(name = "cuenta_bancaria_id")
+    private CuentaBancaria cuentaBancaria;
 }
