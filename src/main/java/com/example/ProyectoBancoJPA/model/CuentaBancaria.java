@@ -1,26 +1,37 @@
-package model;
+package com.example.ProyectoBancoJPA.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "cuentaBancaria")
 public class CuentaBancaria {
+    @Getter
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID,generator = "cuentaBancaria_generator")
-    @SequenceGenerator(name = "cuentaBancaria_generator",allocationSize = 1)
-    private Long idCuenta;
+    @Column(name="idcuenta")
+    private Integer idCuenta;
     @Column(name ="saldo",nullable = false)
-    private Double saldo;
+    private Integer saldo;
     @Column(name = "estado",nullable = false)
     private String estado;
 
     public CuentaBancaria(){
     }
 
-    public CuentaBancaria(Long idCuenta, Double saldo) {
+    public CuentaBancaria(Integer idCuenta, Integer saldo,String estado) {
         this.idCuenta = idCuenta;
         this.saldo = saldo;
         this.estado = estado;
+    }
+
+    public Integer getSaldo() {
+        return saldo;
+    }
+
+    public String getEstado() {
+        return estado;
     }
 
     @Override
@@ -31,4 +42,6 @@ public class CuentaBancaria {
                 " , estado" + estado +
                 '}';
     }
+@OneToMany(mappedBy="cuentaBancaria", cascade = CascadeType.ALL)
+private List<Transaccion> transaccion;
 }

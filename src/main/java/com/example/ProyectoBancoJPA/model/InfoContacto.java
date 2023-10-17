@@ -1,8 +1,7 @@
-package model;
+package com.example.ProyectoBancoJPA.model;
 
 
 import jakarta.persistence.*;
-import model.Cliente;
 
 @Entity
 @Table(name = "infoContacto")

@@ -1,4 +1,4 @@
-package model;
+package com.example.ProyectoBancoJPA.model;
 
 import jakarta.persistence.*;
 
