@@ -8,9 +8,10 @@ import java.util.List;
 @Entity
 @Table(name = "cuentaBancaria")
 public class CuentaBancaria {
-    @Getter
+
     @Id
-    @Column(name="idcuenta")
+    @GeneratedValue(strategy = GenerationType.UUID, generator = "cuentaBancaria_generator")
+    @SequenceGenerator(name= "cuentaBancaria_generator", allocationSize = 1)
     private Integer idCuenta;
     @Column(name ="saldo",nullable = false)
     private Integer saldo;
