@@ -9,6 +9,7 @@ import java.util.List;
 @Table(name = "cuentaBancaria")
 public class CuentaBancaria {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.UUID, generator = "cuentaBancaria_generator")
     @SequenceGenerator(name= "cuentaBancaria_generator", allocationSize = 1)
