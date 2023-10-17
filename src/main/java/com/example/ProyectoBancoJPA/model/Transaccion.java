@@ -8,18 +8,17 @@ import java.sql.Date;
 @Entity
 @Table(name = "transaccion")
 public class Transaccion {
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE )
-    @SequenceGenerator(name = "transaccion_generator")
+    @SequenceGenerator(name = "transaccion_generator",allocationSize = 1 )
     private Integer idtransaccion;
-    @Getter
+
     @Column(name = "fechaTransaccion",nullable = false)
     private Date fechaTransaccion;
-    @Getter
+
     @Column(name = "monto",nullable = false)
     private Double monto;
-    @Getter
+
     @Column(name = "tipo",nullable = false)
     private String tipo;
 
