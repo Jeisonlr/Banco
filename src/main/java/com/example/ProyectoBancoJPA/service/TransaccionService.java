@@ -13,9 +13,8 @@ public class TransaccionService {
     }
 
     public Transaccion crear(Transaccion transaccion) {
-        if(transaccion.getIdtransaccion() == null) {
-            throw new IllegalArgumentException("La id esta nula");
+        return this.transaccionRepository.save(transaccion);
         }
-       return this.transaccionRepository.save(transaccion);
+
     }
-}
+

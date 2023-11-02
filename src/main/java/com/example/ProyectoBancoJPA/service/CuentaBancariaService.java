@@ -15,9 +15,8 @@ public class CuentaBancariaService {
     }
 
     public CuentaBancaria crear(CuentaBancaria cuentaBancaria) {
-        if (cuentaBancaria.getIdCuenta() == null) {
-            throw new IllegalArgumentException("La id esta nula");
+        return this.cuentaBancariaRepository.save(cuentaBancaria);
         }
-         return this.cuentaBancariaRepository.save(cuentaBancaria);
+
     }
-}
+

@@ -11,7 +11,7 @@ public class Transaccion {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE )
     @SequenceGenerator(name = "transaccion_generator",allocationSize = 1 )
-    private Integer idtransaccion;
+    private long idtransaccion;
 
     @Column(name = "fechaTransaccion",nullable = false)
     private Date fechaTransaccion;
@@ -25,14 +25,13 @@ public class Transaccion {
     public Transaccion() {
     }
 
-    public Transaccion(Integer idTransacion, Date fechaTransaccion, Double monto) {
-        this.idtransaccion = idTransacion;
+    public Transaccion(long idTransacion, Date fechaTransaccion, Double monto,String tipo){
         this.fechaTransaccion = fechaTransaccion;
         this.monto = monto;
         this.tipo = tipo;
     }
 
-    public Integer getIdtransaccion() {
+    public long getIdtransaccion() {
         return idtransaccion;
     }
 
