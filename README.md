@@ -56,14 +56,21 @@ Siga los siguientes pasos para ejecutar el proyecto en su entorno local:
 
 ## Estructura del Proyecto
 El proyecto está estructurado de la siguiente manera:
-* src/: Contiene el código fuente de la aplicación.
-* main/: Contiene el código fuente principal.
-* java/: Contiene los archivos fuente de Java.
-* resources/: Contiene archivos de configuración y recursos estáticos.
-* test/: Contiene pruebas unitarias y de integración.
-* pom.xml: Archivo de configuración de Maven que define las dependencias del proyecto.
+* `src/main/java/com/ProyectoIntegrador/Banco`: Contiene los archivos principales del programa:
+  * `model:`: En este paquete, se encuentran las entidades del dominio del sistema, que representan los conceptos clave del negocio. Las entidades incluyen:
+    * `Bolsillo`: Representa un objeto que almacena dinero de un cliente, generalmente asociado a una cuenta bancaria.
+    * `CuentaBancaria`: Representa una cuenta bancaria que pertenece a un cliente, donde se realizan las transacciones financieras.
+    * `InfoContacto`: Contiene información de contacto de un cliente, como dirección, teléfono, correo electrónico, etc.
+    * `Transaccion`: Representa una transacción financiera entre cuentas bancarias, registrando detalles como el monto, la fecha y la descripción.
+    * `Cliente`: Representa a un cliente del banco y contiene información personal, incluyendo información de contacto y las cuentas bancarias asociadas.
+  * `controllers`: En este paquete, se encuentran los controladores de la aplicación que manejan las solicitudes HTTP y definen las rutas de la API.
+  * `services:`: Aquí se encuentran los servicios que implementan la lógica de negocio y gestionan la interacción con las entidades y los controladores.
+  * `repositories`: Contiene los repositorios que se utilizan para acceder y gestionar la persistencia de los datos en la base de datos. Cada entidad generalmente tiene su propio repositorio para realizar operaciones de lectura y escritura.
+* `resources`: Contiene archivos de configuración y recursos estáticos.
+* `test`: Contiene pruebas unitarias y de integración.
+* `pom.xml`: Archivo de configuración de Maven que define las dependencias del proyecto.
 
-* Otros archivos y directorios de configuración, como application.properties o application.yml.
+* Otros archivos y directorios de configuración, como application.properties.
 
 Este proyecto sigue las mejores prácticas de desarrollo de Spring Boot y se enfoca en la seguridad y la gestión de transacciones bancarias. 
 
