@@ -1,12 +1,12 @@
 # Proyecto Integrador - Gestión de bancos
 
+Este repositorio contiene un proyecto integrador desarrollado como parte del bootcamp de Makaia. El proyecto se enfoca en la simulación de un sistema de transacciones bancarias utilizando una combinación de tecnologías, incluyendo Java, MySQL, Spring Boot, Spring Data, Spring Security, JWT, JUnit y Swagger.
+
 ### Equipo de trabajo:
 * Jeison Rios
 * Sofía Salamanca
 * Nicolas Mahecha
 * Leonardo Perdomo
-
-Este repositorio contiene un proyecto integrador desarrollado como parte del bootcamp de Makaia. El proyecto se enfoca en la simulación de un sistema de transacciones bancarias utilizando una combinación de tecnologías, incluyendo Java, MySQL, Spring Boot, Spring Data, Spring Security, JWT, JUnit y Swagger.
 
 ## Contenido del Repositorio
 
