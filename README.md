@@ -35,10 +35,9 @@ A continuación, se presentan los diagramas UML que representan la estructura y 
 ## Requisitos del Programa
 Para ejecutar este programa de manera exitosa, es necesario tener las siguientes herramientas y tecnologías instaladas en su entorno de desarrollo:
 
-- Java 8 o superior.
-- MySQL Server.
+- Java 17.
+- MySQL Server (Puede utilizar MySQL Workbench).
 - Spring Boot.
-- Spring Data.
 - Spring Security.
 - JWT (JSON Web Tokens).
 - JUnit (para pruebas unitarias).
