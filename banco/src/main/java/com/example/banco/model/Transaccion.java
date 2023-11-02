@@ -1,39 +1,42 @@
 package com.example.banco.model;
 import jakarta.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "transaccion")
 public class Transaccion {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "transaccion_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "fechaTransaccion",nullable = false)
-    private Date fechaTransaccion;
-    @Column(name = "monto",nullable = false)
+    @Column(name = "pago",nullable = false)
     private Double monto;
-    @Column(name = "tipo",nullable = false)
-    private String tipo;
+    @Column(name = "fecha_movimiento",nullable = false)
+    private Date fechaTransaccion;
+
+    @Column(name = "transferencia")
+    private double  transferencia;
+
+    @Column(name = "estado",nullable = false)
+    private String estado;
+
+    @Column(name = "consignacion")
+    private double consignacion;
+
+    @ManyToOne
+    @JoinColumn(name = "cuenta_bancaria_id")
+    private CuentaBancaria cuentaBancaria;
 
     public Transaccion() {
     }
 
-    public Transaccion(Integer idTransacion, Date fechaTransaccion, Double monto) {
-        this.id = idTransacion;
-        this.fechaTransaccion = fechaTransaccion;
+    public Transaccion(Integer id, Double monto, Date fechaTransaccion, double transferencia, String estado, double consignacion, CuentaBancaria cuentaBancaria) {
+        this.id = id;
         this.monto = monto;
-        this.tipo = tipo;
-    }
-
-    @Override
-    public String toString() {
-        return "Transaccion{" +
-                "idTransacion=" + id +
-                ", fechaTransaccion=" + fechaTransaccion +
-                ", monto=" + monto +
-                " ,tipo=" + tipo +
-                '}';
+        this.fechaTransaccion = fechaTransaccion;
+        this.transferencia = transferencia;
+        this.estado = estado;
+        this.consignacion = consignacion;
+        this.cuentaBancaria = cuentaBancaria;
     }
 }
