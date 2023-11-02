@@ -1,4 +1,4 @@
-package com.example.banco;
+package com.example.ProyectoBancoJPA;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnectionTest {
     public static void main(String[] args) {
-        String jdbcUrl = "jdbc:mysql://localhost:3306/proyecto_sistemabancario";
+        String jdbcUrl = "jdbc:mysql://localhost:3306/bancojpa";
         String username = "root";
         String password = "carlina1234*";
 
