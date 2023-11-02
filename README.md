@@ -19,11 +19,18 @@ Este repositorio contiene un proyecto integrador desarrollado como parte del boo
 
 A continuación, se presentan los diagramas UML que representan la estructura y relaciones del proyecto, así como el diagrama entidad-relación que ilustra la estructura de la base de datos utilizada:
 
-- Diagrama UML de Clases
-  ![Diagrama de Clases](https://github.com/Jeisonlr/Banco/assets/74073693/205efaf0-c10c-458f-b586-e65f82e06e78)
-
-- Diagrama Entidad-Relación (ER)
-  ![Diagrama Entidad-Relación](url_del_diagrama_entidad-relación)
+<table>
+  <tr>
+    <td>
+      <h3>Diagrama UML de Clases</h3>
+      <img src="https://github.com/Jeisonlr/Banco/assets/74073693/205efaf0-c10c-458f-b586-e65f82e06e78" alt="Diagrama de Clases">
+    </td>
+    <td>
+      <h3>Diagrama Entidad-Relación (ER)</h3>
+      <img src="https://github.com/Jeisonlr/Banco/assets/74073693/f90fa8c6-9ae5-48c5-abb0-3bb5cb5830bf" alt="Diagrama Entidad-Relación">
+    </td>
+  </tr>
+</table>
 
 ## Requisitos del Programa
 Para ejecutar este programa de manera exitosa, es necesario tener las siguientes herramientas y tecnologías instaladas en su entorno de desarrollo:
