@@ -44,6 +44,7 @@ public class CuentaBancaria {
                 " , estado=" + estado +
                 '}';
     }
-@OneToMany(mappedBy="cuentaBancaria", cascade = CascadeType.ALL)
+@OneToMany(cascade = CascadeType.ALL)
+@JoinColumn(name= "cuentaBancaria_id")
 private List<Transaccion> transaccion;
 }

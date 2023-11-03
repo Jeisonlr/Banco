@@ -5,29 +5,16 @@ import com.example.ProyectoBancoJPA.model.Transaccion;
 import com.example.ProyectoBancoJPA.service.CuentaBancariaService;
 import com.example.ProyectoBancoJPA.service.TransaccionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping
 public class BancoController {
-    private CuentaBancariaService cuentaBancariaService;
-    private TransaccionService transaccionService;
+  private TransaccionService transaccionService;
 
-    @Autowired
-    public BancoController(CuentaBancariaService cuentaBancariaService) {
-        this.cuentaBancariaService = cuentaBancariaService;
-    }
-    @PostMapping("/cuentaBancaria")
-    public CuentaBancaria crear (@RequestBody CuentaBancaria cuentaBancaria){
-        return  this.cuentaBancariaService.crear(cuentaBancaria);
-    }
-
-    @PostMapping("/transaccion")
-    public Transaccion crear (@RequestBody Transaccion transaccion){
-        return  this.transaccionService.crear(transaccion);
+    @GetMapping("/demo")
+    public String bienvenida(){
+        return  "hola mundo";
     }
 
 }
