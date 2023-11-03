@@ -9,55 +9,60 @@ import java.sql.Date;
 @Table(name = "transaccion")
 public class Transaccion {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE )
-    @SequenceGenerator(name = "transaccion_generator",allocationSize = 1 )
-    private long idtransaccion;
-
-    @Column(name = "fechaTransaccion",nullable = false)
-    private Date fechaTransaccion;
-
-    @Column(name = "monto",nullable = false)
-    private Double monto;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer idtransaccion;
+    @Column(name = "pago",nullable = false)
+    private Double pago;
+    @Column(name = "fecha_movimeinto",nullable = false)
+    private Date fechaMovimiento;
 
     @Column(name = "tipo",nullable = false)
     private String tipo;
 
+    @ManyToOne
+    @JoinColumn(name = "id_cuenta")
+    private CuentaBancaria cuentaBancaria;
+
+
     public Transaccion() {
     }
 
-    public Transaccion(long idTransacion, Date fechaTransaccion, Double monto,String tipo){
-        this.fechaTransaccion = fechaTransaccion;
-        this.monto = monto;
+    public Transaccion(Integer idtransaccion, Double pago, Date fechaMovimiento, String tipo, CuentaBancaria cuentaBancaria) {
+        this.idtransaccion = idtransaccion;
+        this.pago = pago;
+        this.fechaMovimiento = fechaMovimiento;
         this.tipo = tipo;
+        this.cuentaBancaria = cuentaBancaria;
     }
 
-    public long getIdtransaccion() {
+    public Integer getIdtransaccion() {
         return idtransaccion;
     }
 
-    public Date getFechaTransaccion() {
-        return fechaTransaccion;
+    public Double getPago() {
+        return pago;
     }
 
-    public Double getMonto() {
-        return monto;
+    public Date getFechaMovimiento() {
+        return fechaMovimiento;
     }
 
     public String getTipo() {
         return tipo;
     }
 
+    public CuentaBancaria getCuentaBancaria() {
+        return cuentaBancaria;
+    }
+
     @Override
     public String toString() {
         return "Transaccion{" +
-                "idTransacion=" + idtransaccion +
-                ", fechaTransaccion=" + fechaTransaccion +
-                ", monto=" + monto +
-                " ,tipo=" + tipo +
+                "idtransaccion=" + idtransaccion +
+                ", pago=" + pago +
+                ", fechaMovimiento=" + fechaMovimiento +
+                ", tipo='" + tipo + '\'' +
                 '}';
     }
-    @ManyToOne
-    @JoinColumn(name = "cuentaBancaria_id")
-    private CuentaBancaria cuentaBancaria;
-
 }
