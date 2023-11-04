@@ -1,9 +1,10 @@
 package com.ProyectoIntegrador.Banco.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.sql.Date;
-
+@Data
 @Entity
 @Table(name = "transaccion")
 public class Transaccion {

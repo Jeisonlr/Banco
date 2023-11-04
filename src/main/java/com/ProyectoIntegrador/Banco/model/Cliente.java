@@ -1,11 +1,14 @@
 package com.ProyectoIntegrador.Banco.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
+@AllArgsConstructor
 @Entity
 @Table(name = "cliente")
 public class Cliente {
