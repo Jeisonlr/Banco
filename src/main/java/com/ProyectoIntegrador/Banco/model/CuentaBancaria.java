@@ -1,7 +1,17 @@
 package com.ProyectoIntegrador.Banco.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "cuentaBancaria")
 public class CuentaBancaria {
@@ -9,31 +19,23 @@ public class CuentaBancaria {
     @GeneratedValue(strategy = GenerationType.UUID,generator = "cuentaBancaria_generator")
     @SequenceGenerator(name = "cuentaBancaria_generator",allocationSize = 1)
     private Long idCuenta;
-    @Column(name ="saldo",nullable = false)
-    private Double saldo;
+
+    @Column(name = "balance")
+    private BigDecimal balance;
+    @Column(name = "password_transaction")
+    private String passwordTransaction;
+
     @Column(name = "estado",nullable = false)
     private String estado;
 
-    public CuentaBancaria(){
-    }
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
-    public CuentaBancaria(Long idCuenta, Double saldo) {
-        this.idCuenta = idCuenta;
-        this.saldo = saldo;
-        this.estado = estado;
-    }
+    @OneToMany(mappedBy = "cuentaBancaria")
+    private  List<Transaccion> transaction;
 
-    @Override
-    public String toString() {
-        return "CuentaBancaria{" +
-                "idCuenta=" + idCuenta +
-                ", saldo=" + saldo +
-                " , estado" + estado +
-                '}';
-    }
-
-        @ManyToOne
-        @JoinColumn(name = "cliente_id")
-        private Cliente cliente;
+    @OneToMany(mappedBy = "cuentaBancaria")
+    private List<Bolsillo> bolsillos = new ArrayList<>();
 
 }
