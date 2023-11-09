@@ -13,7 +13,7 @@ public class CuentaBancaria {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID, generator = "cuentaBancaria_generator")
     @SequenceGenerator(name= "cuentaBancaria_generator", allocationSize = 1)
-    private long idCuenta;
+    private Integer idCuenta;
     @Column(name ="saldo", nullable = false)
     private Integer saldo;
     @Column(name = "estado",nullable = false)
@@ -22,13 +22,13 @@ public class CuentaBancaria {
     public CuentaBancaria(){
     }
 
-    public CuentaBancaria(long idCuenta, Integer saldo,String estado) {
+    public CuentaBancaria(Integer idCuenta, Integer saldo,String estado) {
         this.idCuenta = idCuenta;
         this.saldo = saldo;
         this.estado = estado;
     }
 
-    public long getSaldo() {
+    public Integer getSaldo() {
         return saldo;
     }
 
