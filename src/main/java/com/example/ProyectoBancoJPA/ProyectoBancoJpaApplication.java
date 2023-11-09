@@ -1,13 +1,14 @@
-package com.ProyectoIntegrador.Banco;
+package com.example.ProyectoBancoJPA;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
-public class BancoApplication {
+public class ProyectoBancoJpaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BancoApplication.class, args);
+		SpringApplication.run(ProyectoBancoJpaApplication.class, args);
 	}
 
 }
