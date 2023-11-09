@@ -1,7 +1,13 @@
 package com.example.ProyectoBancoJPA.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "bolsillo")
 public class Bolsillo {
@@ -19,16 +25,6 @@ public class Bolsillo {
     @JoinColumn(name = "id_cuenta")
     private CuentaBancaria cuentaBancaria;
 
-    public Bolsillo() {
-    }
-
-    public Bolsillo(Integer id, String nombreBolsillo, Double saldo, String estado, CuentaBancaria cuentaBancaria) {
-        this.id = id;
-        this.nombreBolsillo = nombreBolsillo;
-        this.saldo = saldo;
-        this.estado = estado;
-        this.cuentaBancaria = cuentaBancaria;
-    }
 
     @Override
     public String toString() {

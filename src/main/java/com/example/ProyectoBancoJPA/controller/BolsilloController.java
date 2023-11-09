@@ -1,7 +1,7 @@
-package com.ProyectoIntegrador.Banco.controller;
+package com.example.ProyectoBancoJPA.controller;
 
-import com.ProyectoIntegrador.Banco.model.Bolsillo;
-import com.ProyectoIntegrador.Banco.service.BolsilloService;
+import com.example.ProyectoBancoJPA.model.Bolsillo;
+import com.example.ProyectoBancoJPA.service.BolsilloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +23,7 @@ public class BolsilloController {
     }
 
     @GetMapping("/{id}")
-    public Bolsillo getBolsilloById(@PathVariable Long id) {
+    public Bolsillo getBolsilloById(@PathVariable Integer id) {
         return bolsilloService.getBolsilloById(id);
     }
 

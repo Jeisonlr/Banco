@@ -1,10 +1,17 @@
 package com.example.ProyectoBancoJPA.model;
 
+import com.example.ProyectoBancoJPA.model.Bolsillo;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "transaccion")
 public class Transaccion {
@@ -24,37 +31,9 @@ public class Transaccion {
     @JoinColumn(name = "id_cuenta")
     private CuentaBancaria cuentaBancaria;
 
-
-    public Transaccion() {
-    }
-
-    public Transaccion(Integer idtransaccion, Double pago, Date fechaMovimiento, String tipo, CuentaBancaria cuentaBancaria) {
-        this.idtransaccion = idtransaccion;
-        this.pago = pago;
-        this.fechaMovimiento = fechaMovimiento;
-        this.tipo = tipo;
-        this.cuentaBancaria = cuentaBancaria;
-    }
-
-    public Integer getIdtransaccion() {
-        return idtransaccion;
-    }
-
-    public Double getPago() {
-        return pago;
-    }
-
-    public Date getFechaMovimiento() {
-        return fechaMovimiento;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public CuentaBancaria getCuentaBancaria() {
-        return cuentaBancaria;
-    }
+    @ManyToOne
+    @JoinColumn(name = "id_bolsillo")
+    private Bolsillo bolsillo;
 
     @Override
     public String toString() {

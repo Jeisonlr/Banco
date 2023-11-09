@@ -1,13 +1,12 @@
-package com.ProyectoIntegrador.Banco.service;
+package com.example.ProyectoBancoJPA.service;
 
-import com.ProyectoIntegrador.Banco.model.Bolsillo;
-import com.ProyectoIntegrador.Banco.repository.BolsilloRepository;
+import com.example.ProyectoBancoJPA.model.Bolsillo;
+import com.example.ProyectoBancoJPA.repository.BolsilloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
-        import java.util.Optional;
+import java.util.Optional;
 
 @Service
 public class  BolsilloServiceImpl implements BolsilloService {
@@ -29,12 +28,12 @@ public class  BolsilloServiceImpl implements BolsilloService {
     }
 
     @Override
-    public Bolsillo getBolsilloById(Long id) {
+    public Bolsillo getBolsilloById(Integer id) {
         return bolsilloRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Bolsillo updateBolsillo(Long id, Bolsillo bolsilloActualizado) {
+    public Bolsillo updateBolsillo(Integer id, Bolsillo bolsilloActualizado) {
         Optional<Bolsillo> bolsilloExistenteOptional = bolsilloRepository.findById(id);
 
         if (bolsilloExistenteOptional.isPresent()) {
@@ -51,7 +50,7 @@ public class  BolsilloServiceImpl implements BolsilloService {
     }
 
     @Override
-    public void deleteBolsillo(Long id) {
+    public void deleteBolsillo(Integer id) {
         bolsilloRepository.deleteById(id);
     }
 }

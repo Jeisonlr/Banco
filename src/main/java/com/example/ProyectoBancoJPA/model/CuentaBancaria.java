@@ -1,12 +1,20 @@
 package com.example.ProyectoBancoJPA.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import java.util.Date;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "cuenta_bancaria")
 public class CuentaBancaria {
@@ -32,18 +40,9 @@ public class CuentaBancaria {
 
     @Column(name = "banco_nombre", nullable = false)
     private String banco;
-    public CuentaBancaria(){
-    }
 
-    public CuentaBancaria(Integer idCuenta, Integer saldo, Cliente cliente, Date fecha_apertura, Date fecha_cierre, String estado, String banco) {
-        this.idCuenta = idCuenta;
-        this.saldo = saldo;
-        this.cliente = cliente;
-        this.fecha_apertura = fecha_apertura;
-        this.fecha_cierre = fecha_cierre;
-        this.estado = estado;
-        this.banco = banco;
-    }
+    @Column(name = "balance")
+    private BigDecimal balance;
 
     public long getSaldo() {
         return saldo;

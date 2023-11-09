@@ -1,20 +1,25 @@
-package com.ProyectoIntegrador.Banco.service;
+package com.example.ProyectoBancoJPA.service;
 
-import com.ProyectoIntegrador.Banco.model.CuentaBancaria;
-import com.ProyectoIntegrador.Banco.repository.CuentaBancariaRepository;
+import com.example.ProyectoBancoJPA.model.CuentaBancaria;
+import com.example.ProyectoBancoJPA.repository.CuentaBancariaRepository;
+import com.example.ProyectoBancoJPA.dto.CuentaBancariaDTO;
+import com.example.ProyectoBancoJPA.model.Cliente;
+import com.example.ProyectoBancoJPA.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class CuentaBancariaServiceImpl implements CuentaBancariaService {
     private final CuentaBancariaRepository cuentaBancariaRepository;
+    private final ClienteRepository clienteRepository;
 
-    @Autowired
-    public CuentaBancariaServiceImpl(CuentaBancariaRepository cuentaBancariaRepository) {
+    public CuentaBancariaServiceImpl(CuentaBancariaRepository cuentaBancariaRepository, ClienteRepository clienteRepository) {
         this.cuentaBancariaRepository = cuentaBancariaRepository;
+        this.clienteRepository = clienteRepository;
     }
 
     @Override
@@ -24,16 +29,16 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
 
     @Override
     public List<CuentaBancaria> getAllCuentasBancarias() {
-        return cuentaBancariaRepository.findAll();
+        return (List<CuentaBancaria>) cuentaBancariaRepository.findAll();
     }
 
     @Override
-    public CuentaBancaria getCuentaBancariaById(Long idCuenta) {
+    public CuentaBancaria getCuentaBancariaById(Integer idCuenta) {
         return cuentaBancariaRepository.findById(idCuenta).orElse(null);
     }
 
     @Override
-    public CuentaBancaria updateCuentaBancaria(Long idCuenta, CuentaBancaria cuentaBancariaActualizada) {
+    public CuentaBancaria updateCuentaBancaria(Integer idCuenta, CuentaBancaria cuentaBancariaActualizada) {
         Optional<CuentaBancaria> cuentaBancariaExistenteOptional = cuentaBancariaRepository.findById(idCuenta);
 
         if (cuentaBancariaExistenteOptional.isPresent()) {
@@ -49,7 +54,7 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
     }
 
     @Override
-    public void deleteCuentaBancaria(Long idCuenta) {
+    public void deleteCuentaBancaria(Integer idCuenta) {
         cuentaBancariaRepository.deleteById(idCuenta);
     }
 }

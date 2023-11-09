@@ -16,5 +16,19 @@ public class TransaccionService {
         return this.transaccionRepository.save(transaccion);
         }
 
+    public Iterable<Transaccion> getAllTransacciones(){
+        return null;
     }
+
+    public Transaccion getTransaccionById(Integer id) {
+        return null;
+    }
+
+    public Transaccion updateTransaccion(Integer id, Transaccion updatedTransaccion) {
+        return null;
+    }
+
+    public void deleteTransaccion(Integer id) {
+    }
+}
 
