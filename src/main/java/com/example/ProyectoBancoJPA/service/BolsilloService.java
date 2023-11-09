@@ -15,5 +15,4 @@ public interface BolsilloService {
 
     void deleteBolsillo(Integer id);
 
-    // Agrega otros métodos para transferencias de fondos, pagos, etc.
 }
