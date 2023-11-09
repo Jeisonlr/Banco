@@ -1,5 +1,7 @@
 package com.ProyectoIntegrador.Banco.service;
 
+import com.ProyectoIntegrador.Banco.Exceptions.ClienteNoEncontradoException;
+import com.ProyectoIntegrador.Banco.model.Cliente;
 import com.ProyectoIntegrador.Banco.model.CuentaBancaria;
 import com.ProyectoIntegrador.Banco.repository.CuentaBancariaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +12,33 @@ import java.util.Optional;
 
 @Service
 public class CuentaBancariaServiceImpl implements CuentaBancariaService {
+
+    private final ClienteServiceImpl clienteService;
     private final CuentaBancariaRepository cuentaBancariaRepository;
 
     @Autowired
-    public CuentaBancariaServiceImpl(CuentaBancariaRepository cuentaBancariaRepository) {
+    public CuentaBancariaServiceImpl(ClienteServiceImpl clienteService, CuentaBancariaRepository cuentaBancariaRepository) {
+        this.clienteService = clienteService;
         this.cuentaBancariaRepository = cuentaBancariaRepository;
     }
 
     @Override
+        public CuentaBancaria crearCuentaBancaria(Long cedula, CuentaBancaria cuentaBancaria) throws ClienteNoEncontradoException {
+            // Verifica si el cliente existe.
+        Optional<Cliente> optionalCliente = this.clienteService.getClienteByCedula(cedula);
+            if (optionalCliente.isEmpty()) {
+                throw new ClienteNoEncontradoException("El cliente no existe.");
+            }
+
+            // Asocia la cuenta bancaria al cliente y realiza la creación.
+            cuentaBancaria.setCliente(optionalCliente.get());
+            return cuentaBancariaRepository.save(cuentaBancaria);
+        }
+
+
+    @Override
     public CuentaBancaria createCuentaBancaria(CuentaBancaria cuentaBancaria) {
-        return cuentaBancariaRepository.save(cuentaBancaria);
+        return null;
     }
 
     @Override

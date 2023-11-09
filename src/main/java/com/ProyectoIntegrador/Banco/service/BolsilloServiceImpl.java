@@ -1,6 +1,9 @@
 package com.ProyectoIntegrador.Banco.service;
 
+import com.ProyectoIntegrador.Banco.Exceptions.BolsilloNoEncontradoException;
+import com.ProyectoIntegrador.Banco.Exceptions.CuentaNoEncontradaException;
 import com.ProyectoIntegrador.Banco.model.Bolsillo;
+import com.ProyectoIntegrador.Banco.model.CuentaBancaria;
 import com.ProyectoIntegrador.Banco.repository.BolsilloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,16 +14,28 @@ import java.util.List;
 
 @Service
 public class  BolsilloServiceImpl implements BolsilloService {
-    private  BolsilloRepository bolsilloRepository;
+    private final BolsilloRepository bolsilloRepository;
+    private final CuentaBancariaServiceImpl cuentaBancariaService;
 
     @Autowired
-    public BolsilloServiceImpl(BolsilloRepository bolsilloRepository) {
+    public BolsilloServiceImpl(BolsilloRepository bolsilloRepository, CuentaBancariaServiceImpl cuentaBancariaService) {
         this.bolsilloRepository = bolsilloRepository;
+        this.cuentaBancariaService = cuentaBancariaService;
+    }
+
+    @Override
+    public Bolsillo createBolsillo(Long idCuenta, Bolsillo bolsillo)throws CuentaNoEncontradaException {
+      CuentaBancaria optionalCuentaBancaria  = this.cuentaBancariaService.getCuentaBancariaById(idCuenta);
+
+
+
+
+        return bolsilloRepository.save(bolsillo);
     }
 
     @Override
     public Bolsillo createBolsillo(Bolsillo bolsillo) {
-        return bolsilloRepository.save(bolsillo);
+        return null;
     }
 
     @Override
@@ -34,7 +49,7 @@ public class  BolsilloServiceImpl implements BolsilloService {
     }
 
     @Override
-    public Bolsillo updateBolsillo(Long id, Bolsillo bolsilloActualizado) {
+    public Bolsillo updateBolsillo(Long id, Bolsillo bolsilloActualizado) throws BolsilloNoEncontradoException {
         Optional<Bolsillo> bolsilloExistenteOptional = bolsilloRepository.findById(id);
 
         if (bolsilloExistenteOptional.isPresent()) {
@@ -46,9 +61,9 @@ public class  BolsilloServiceImpl implements BolsilloService {
 
             return bolsilloRepository.save(bolsilloExistente);
         } else {
-            return null; // Manejo de error si el bolsillo no se encuentra.
+            throw new BolsilloNoEncontradoException("El bolsillo no existe.");}
         }
-    }
+
 
     @Override
     public void deleteBolsillo(Long id) {

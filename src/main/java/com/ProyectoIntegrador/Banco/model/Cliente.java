@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name = "cliente")
 public class Cliente {
     @Id
-    private Long id;
+    private Long cedula;
     @Column(name = "nombre",nullable = false)
     private String nombre;
     @Column(name = "apellido",nullable = false)
@@ -27,11 +27,4 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private List<CuentaBancaria> cuentas = new ArrayList<>();
 
-
-
-
 }
-/*@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "infoContacto_id")
-    private InfoContacto infoContacto;
-*/
