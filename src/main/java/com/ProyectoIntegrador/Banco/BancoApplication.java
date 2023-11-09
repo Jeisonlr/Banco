@@ -3,11 +3,13 @@ package com.ProyectoIntegrador.Banco;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
-public class BancoApplication {
+public class  BancoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BancoApplication.class, args);
 	}
 
 }
+//http://localhost:8080/h2-console/

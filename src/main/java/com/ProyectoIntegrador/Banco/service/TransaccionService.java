@@ -1,14 +1,20 @@
 package com.ProyectoIntegrador.Banco.service;
 
+import com.ProyectoIntegrador.Banco.Exceptions.SaldoInsuficienteException;
+import com.ProyectoIntegrador.Banco.model.Bolsillo;
+import com.ProyectoIntegrador.Banco.model.CuentaBancaria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ProyectoIntegrador.Banco.model.Transaccion;
 import com.ProyectoIntegrador.Banco.repository.TransaccionRepository;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 @Service
 public class TransaccionService {
 
-    private TransaccionRepository transaccionRepository;
+    private final TransaccionRepository transaccionRepository;
 
     @Autowired
     public TransaccionService(TransaccionRepository transaccionRepository) {
@@ -32,7 +38,7 @@ public class TransaccionService {
         if (existingTransaccion != null) {
             existingTransaccion.setFechaTransaccion(updatedTransaccion.getFechaTransaccion());
             existingTransaccion.setMonto(updatedTransaccion.getMonto());
-            existingTransaccion.setTipo(updatedTransaccion.getTipo());
+            existingTransaccion.setTipoTransaccion(updatedTransaccion.getTipoTransaccion());
             return transaccionRepository.save(existingTransaccion);
         }
         return null;
@@ -41,5 +47,48 @@ public class TransaccionService {
     public void deleteTransaccion(Integer id) {
         transaccionRepository.deleteById(id);
     }
-}
 
+
+    public Transaccion realizarTransferenciaExterna(CuentaBancaria cuentaOrigen, CuentaBancaria cuentaDestino, BigDecimal monto) throws SaldoInsuficienteException {
+        // Validar disponibilidad de fondos en la cuenta origen.
+        if (cuentaOrigen.getBalance().compareTo(monto) < 0) {
+            throw new SaldoInsuficienteException("Fondos insuficientes en la cuenta origen.");
+        }
+
+        // Realizar la transacción restando el monto de la cuenta origen y sumándolo a la cuenta destino.
+        cuentaOrigen.setBalance(cuentaOrigen.getBalance().subtract(monto));
+        cuentaDestino.setBalance(cuentaDestino.getBalance().add(monto));
+
+        // Registrar la transacción en la base de datos.
+        Transaccion transaccion = new Transaccion();
+        transaccion.setFechaTransaccion(LocalDateTime.now());
+        transaccion.setMonto(monto);
+        transaccion.setTipoTransaccion("Externa");
+        transaccion.setNumeroCuentaEnvia(cuentaOrigen.getIdCuenta().toString());
+        transaccion.setNumeroCuentaRecibe(cuentaDestino.getIdCuenta().toString());
+        transaccion.setCuentaBancaria(cuentaOrigen);
+        return transaccionRepository.save(transaccion);
+    }
+    public Transaccion realizarTransferenciaInterna(CuentaBancaria cuenta, Bolsillo bolsillo, BigDecimal monto) throws SaldoInsuficienteException {
+        // Validar disponibilidad de fondos en la cuenta.
+        if (cuenta.getBalance().compareTo(monto) < 0) {
+            throw new SaldoInsuficienteException("Fondos insuficientes en la cuenta bancaria.");
+        }
+
+        // Realizar la transacción restando el monto de la cuenta y sumándolo al bolsillo.
+        cuenta.setBalance(cuenta.getBalance().subtract(monto));
+        bolsillo.setSaldo(bolsillo.getSaldo().add(monto));
+
+        // Registrar la transacción en la base de datos.
+        Transaccion transaccion = new Transaccion();
+        transaccion.setFechaTransaccion(LocalDateTime.now());
+        transaccion.setMonto(monto);
+        transaccion.setTipoTransaccion("Interna");
+        transaccion.setNumeroCuentaEnvia(cuenta.getIdCuenta().toString());
+        transaccion.setNumeroCuentaRecibe(bolsillo.getId().toString());
+        transaccion.setCuentaBancaria(cuenta);
+        transaccion.setBolsillo(bolsillo);
+        return transaccionRepository.save(transaccion);
+    }
+
+}
