@@ -60,14 +60,14 @@ public class TransaccionController {
     public ResponseEntity<Transaccion> realizarTransferenciaExterna(
             @RequestBody TransferenciaExternaRequest request) {
         try {
-            Transaccion transaccion = transaccionService.realizarTransferenciaInterna(
-                    request.getCuenta(),
-                    request.getBolsillo(),
+            Transaccion transaccion = transaccionService.realizarTransferenciaExterna(
+                    request.getCuentaOrigen(),
+                    request.getCuentaDestino(),
                     request.getMonto()
             );
             return new ResponseEntity<>(transaccion, HttpStatus.CREATED);
         } catch (SaldoInsuficienteException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
         }
-    }}
+    }
+}

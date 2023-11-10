@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Data
 public class TransferenciaExternaRequest {
-    private CuentaBancaria cuenta;
-    private Bolsillo bolsillo;
+    private CuentaBancaria cuentaOrigen;
+    private CuentaBancaria cuentaDestino;
     private BigDecimal monto;
 }
