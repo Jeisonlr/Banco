@@ -23,8 +23,6 @@ public class CuentaBancaria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCuenta;
-    @Column(name = "saldo", nullable = false)
-    private Integer saldo;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
@@ -44,20 +42,13 @@ public class CuentaBancaria {
     @Column(name = "balance")
     private BigDecimal balance;
 
-    public long getSaldo() {
-        return saldo;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
 
 
     @Override
     public String toString() {
         return "CuentaBancaria{" +
                 "idCuenta=" + idCuenta +
-                ", saldo=" + saldo +
+                ", balance=" + balance +
                 " , estado=" + estado +
                 '}';
     }
