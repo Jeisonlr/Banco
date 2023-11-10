@@ -1,13 +1,11 @@
 package com.example.ProyectoBancoJPA.model;
 
-import com.example.ProyectoBancoJPA.model.Bolsillo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -16,32 +14,28 @@ import java.sql.Date;
 @Table(name = "transaccion")
 public class Transaccion {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer idtransaccion;
-    @Column(name = "pago",nullable = false)
-    private Double pago;
-    @Column(name = "fecha_movimeinto",nullable = false)
-    private Date fechaMovimiento;
+    private  Integer id;
+    @Column(name = "fechaTransaccion",nullable = false)
+    private LocalDateTime fechaTransaccion;
+    @Column(name = "monto",nullable = false)
+    private BigDecimal monto;
+    @Column(name = "tipoTransaccion",nullable = false)
+    private String tipoTransaccion;
 
-    @Column(name = "tipo",nullable = false)
-    private String tipo;
+    @Column(name = "numero_cuenta_envia")
+    private String numeroCuentaEnvia;
+
+    @Column(name = "numero_cuenta_recibe")
+    private  String  numeroCuentaRecibe;
+
 
     @ManyToOne
     @JoinColumn(name = "id_cuenta")
-    private CuentaBancaria cuentaBancaria;
+    private  CuentaBancaria cuentaBancaria;
 
     @ManyToOne
     @JoinColumn(name = "id_bolsillo")
-    private Bolsillo bolsillo;
-
-    @Override
-    public String toString() {
-        return "Transaccion{" +
-                "idtransaccion=" + idtransaccion +
-                ", pago=" + pago +
-                ", fechaMovimiento=" + fechaMovimiento +
-                ", tipo='" + tipo + '\'' +
-                '}';
-    }
+    private  Bolsillo bolsillo ;
 }

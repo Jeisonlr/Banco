@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,8 +18,8 @@ public class Bolsillo {
     private Integer id;
     @Column(name = "nombre", nullable = false)
     private String nombreBolsillo;
-    @Column(name ="saldo", nullable = false)
-    private Double saldo;
+    @Column(name ="saldo",nullable = false)
+    private BigDecimal saldo;
     @Column(name = "estado", nullable = false)
     private String estado;
 
