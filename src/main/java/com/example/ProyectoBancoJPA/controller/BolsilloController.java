@@ -3,6 +3,7 @@ package com.example.ProyectoBancoJPA.controller;
 import com.example.ProyectoBancoJPA.model.Bolsillo;
 import com.example.ProyectoBancoJPA.service.BolsilloService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -32,7 +33,7 @@ public class BolsilloController {
             @ApiResponse(responseCode = "404", description = "Cuenta bancaria no encontrada",
                     content = @Content)})
     @GetMapping("/{id}")
-    public Bolsillo getBolsilloById(@PathVariable Integer id) {
+    public Bolsillo getBolsilloById(@Parameter(description = "Id de la cuenta bancaria") Integer id) {
         return bolsilloService.getBolsilloById(id);
     }
 
