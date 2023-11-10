@@ -1,12 +1,16 @@
-package com.ProyectoIntegrador.Banco.repository;
+package com.example.ProyectoBancoJPA.repository;
 
-import com.ProyectoIntegrador.Banco.model.Transaccion;
+import com.example.ProyectoBancoJPA.model.CuentaBancaria;
+import com.example.ProyectoBancoJPA.model.Transaccion;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class TransaccionRepositoryImpl {
-    public Transaccion externaDB() {
-    Transaccion transaccion = new Transaccion();
+
+public class TransaccionRepositoryImpl{
+    private TransaccionRepository transaccionRepository;
+    public Transaccion externaDB(BigDecimal monto, CuentaBancaria cuentaOrigen, CuentaBancaria cuentaDestino) {
+        Transaccion transaccion = new Transaccion();
         transaccion.setFechaTransaccion(LocalDateTime.now());
         transaccion.setMonto(monto);
         transaccion.setTipoTransaccion("Externa");
@@ -14,4 +18,5 @@ public class TransaccionRepositoryImpl {
         transaccion.setNumeroCuentaRecibe(cuentaDestino.getIdCuenta().toString());
         transaccion.setCuentaBancaria(cuentaOrigen);
         return transaccionRepository.save(transaccion);
+    }
 }
