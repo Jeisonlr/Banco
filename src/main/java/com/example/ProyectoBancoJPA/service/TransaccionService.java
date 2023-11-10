@@ -90,4 +90,7 @@ public class TransaccionService {
         return transaccionRepository.save(transaccion);
     }
 
+    public Transaccion crear(Transaccion transaccion) {
+        return null;
+    }
 }

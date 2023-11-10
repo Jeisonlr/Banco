@@ -11,8 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/bolsillos")
 public class BolsilloController {
@@ -23,22 +21,31 @@ public class BolsilloController {
         this.bolsilloService = bolsilloService;
     }
 
+    @Operation(summary = "Crear un bolsillo nuevo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Crear bolsillo nuevo",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Bolsillo.class)) }),
+            @ApiResponse(responseCode = "400", description = "Parametros invalidos",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+                    content = @Content)})
+    @PostMapping("/create")
+    public Bolsillo crearBolsillo(@RequestBody Bolsillo bolsillo){
+        return this.bolsilloService.createBolsillo(bolsillo);
+    }
+
     @Operation(summary = "Obtener todos los bolsillos de una cuenta")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Bolsillos encontrados correctamente",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Bolsillo.class)) }),
-            @ApiResponse(responseCode = "400", description = "Id invalidad",
+            @ApiResponse(responseCode = "400", description = "Id invalida",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Cuenta bancaria no encontrada",
                     content = @Content)})
     @GetMapping("/{id}")
     public Bolsillo getBolsilloById(@Parameter(description = "Id de la cuenta bancaria") Integer id) {
         return bolsilloService.getBolsilloById(id);
-    }
-
-    @PostMapping
-    public Bolsillo crearBolsillo(@RequestBody Bolsillo bolsillo){
-        return this.bolsilloService.createBolsillo(bolsillo);
     }
 }
