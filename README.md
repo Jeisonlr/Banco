@@ -61,20 +61,72 @@ Siga los siguientes pasos para ejecutar el proyecto en su entorno local:
 5. Abra un navegador web y acceda a la documentación de la API a través de Swagger (si está habilitado).
 
 ## Estructura del Proyecto
-El proyecto está estructurado de la siguiente manera:
-* `src/main/java/com/ProyectoIntegrador/Banco`: Contiene los archivos principales del programa:
-  * `model:`: En este paquete, se encuentran las entidades del dominio del sistema, que representan los conceptos clave del negocio. Las entidades incluyen:
-    * `Bolsillo`: Representa un objeto que almacena dinero de un cliente, generalmente asociado a una cuenta bancaria.
-    * `CuentaBancaria`: Representa una cuenta bancaria que pertenece a un cliente, donde se realizan las transacciones financieras.
-    * `InfoContacto`: Contiene información de contacto de un cliente, como dirección, teléfono, correo electrónico, etc.
-    * `Transaccion`: Representa una transacción financiera entre cuentas bancarias, registrando detalles como el monto, la fecha y la descripción.
-    * `Cliente`: Representa a un cliente del banco y contiene información personal, incluyendo información de contacto y las cuentas bancarias asociadas.
-  * `controllers`: En este paquete, se encuentran los controladores de la aplicación que manejan las solicitudes HTTP y definen las rutas de la API.
-  * `services:`: Aquí se encuentran los servicios que implementan la lógica de negocio y gestionan la interacción con las entidades y los controladores.
-  * `repositories`: Contiene los repositorios que se utilizan para acceder y gestionar la persistencia de los datos en la base de datos. Cada entidad generalmente tiene su propio repositorio para realizar operaciones de lectura y escritura.
-* `resources`: Contiene archivos de configuración y recursos estáticos.
-* `test`: Contiene pruebas unitarias y de integración.
-* `pom.xml`: Archivo de configuración de Maven que define las dependencias del proyecto.
+
+Este proyecto sigue una estructura modularizada para facilitar la organización y mantenimiento del código. A continuación, se describe la jerarquía de carpetas y archivos en el directorio `src/main/java/com/example/ProyectoBancoJPA/`:
+
+- **Auth/**
+  - [`AuthResponse.java`](src/main/java/com/example/ProyectoBancoJPA/Auth/AuthResponse.java): Clase que representa la respuesta de autenticación.
+
+- **Jwt/**
+  - [`JwtAuthenticationFilter.java`](src/main/java/com/example/ProyectoBancoJPA/Jwt/JwtAuthenticationFilter.java): Filtro para procesar y validar tokens JWT en las solicitudes.
+  - [`JwtService.java`](src/main/java/com/example/ProyectoBancoJPA/Jwt/JwtService.java): Servicio encargado de generar y validar tokens JWT.
+
+- **Request/**
+  - [`LoginRequest.java`](src/main/java/com/example/ProyectoBancoJPA/Request/LoginRequest.java): Clase que modela la solicitud de inicio de sesión.
+  - [`RegisterRequest.java`](src/main/java/com/example/ProyectoBancoJPA/Request/RegisterRequest.java): Clase que modela la solicitud de registro.
+
+- **config/**
+  - [`ApplicationConfig.java`](src/main/java/com/example/ProyectoBancoJPA/config/ApplicationConfig.java): Configuración general de la aplicación.
+  - [`SecurityConfig.java`](src/main/java/com/example/ProyectoBancoJPA/config/SecurityConfig.java): Configuración de seguridad, incluyendo la configuración de Spring Security.
+
+- **controller/**
+  - [`AuthController.java`](src/main/java/com/example/ProyectoBancoJPA/controller/AuthController.java): Controlador que maneja las operaciones relacionadas con la autenticación.
+  - [`BolsilloController.java`](src/main/java/com/example/ProyectoBancoJPA/controller/BolsilloController.java): Controlador para operaciones relacionadas con bolsillos.
+  - [`ClienteController.java`](src/main/java/com/example/ProyectoBancoJPA/controller/ClienteController.java): Controlador para operaciones relacionadas con clientes.
+  - [`CuentaBancariaController.java`](src/main/java/com/example/ProyectoBancoJPA/controller/CuentaBancariaController.java): Controlador para operaciones relacionadas con cuentas bancarias.
+  - [`TransaccionController.java`](src/main/java/com/example/ProyectoBancoJPA/controller/TransaccionController.java): Controlador para operaciones relacionadas con transacciones.
+
+- **dto/**
+  - [`BolsilloDTO.java`](src/main/java/com/example/ProyectoBancoJPA/dto/BolsilloDTO.java): Objeto de transferencia de datos (DTO) para la entidad Bolsillo.
+  - [`ClienteDTO.java`](src/main/java/com/example/ProyectoBancoJPA/dto/ClienteDTO.java): DTO para la entidad Cliente.
+  - [`CuentaBancariaDTO.java`](src/main/java/com/example/ProyectoBancoJPA/dto/CuentaBancariaDTO.java): DTO para la entidad Cuenta Bancaria.
+  - [`TransaccionDTO.java`](src/main/java/com/example/ProyectoBancoJPA/dto/TransaccionDTO.java): DTO para la entidad Transacción.
+  - [`TransferenciaExternaRequest.java`](src/main/java/com/example/ProyectoBancoJPA/dto/TransferenciaExternaRequest.java): DTO para solicitudes de transferencias externas.
+  - [`TransferenciaInternaRequest.java`](src/main/java/com/example/ProyectoBancoJPA/dto/TransferenciaInternaRequest.java): DTO para solicitudes de transferencias internas.
+
+- **exceptions/**
+  - [`BolsilloNoEncontradoException.java`](src/main/java/com/example/ProyectoBancoJPA/exceptions/BolsilloNoEncontradoException.java): Excepción lanzada cuando no se encuentra un bolsillo.
+  - [`ClienteNotFoundException.java`](src/main/java/com/example/ProyectoBancoJPA/exceptions/ClienteNotFoundException.java): Excepción lanzada cuando no se encuentra un cliente.
+  - [`CuentaNoEncontradaException.java`](src/main/java/com/example/ProyectoBancoJPA/exceptions/CuentaNoEncontradaException.java): Excepción lanzada cuando no se encuentra una cuenta bancaria.
+  - [`SaldoInsuficienteException.java`](src/main/java/com/example/ProyectoBancoJPA/exceptions/SaldoInsuficienteException.java): Excepción lanzada cuando hay un intento de transacción con saldo insuficiente.
+
+- **model/**
+  - [`Bolsillo.java`](src/main/java/com/example/ProyectoBancoJPA/model/Bolsillo.java): Clase que representa la entidad Bolsillo.
+  - [`Cliente.java`](src/main/java/com/example/ProyectoBancoJPA/model/Cliente.java): Clase que representa la entidad Cliente.
+  - [`CuentaBancaria.java`](src/main/java/com/example/ProyectoBancoJPA/model/CuentaBancaria.java): Clase que representa la entidad Cuenta Bancaria.
+  - [`Transaccion.java`](src/main/java/com/example/ProyectoBancoJPA/model/Transaccion.java): Clase que representa la entidad Transacción.
+
+- **repository/**
+  - [`BolsilloRepository.java`](src/main/java/com/example/ProyectoBancoJPA/repository/BolsilloRepository.java): Interfaz para acceder y manipular datos de Bolsillos en la base de datos.
+  - [`ClienteRepository.java`](src/main/java/com/example/ProyectoBancoJPA/repository/ClienteRepository.java): Interfaz para acceder y manipular datos de Clientes en la base de datos.
+  - [`CuentaBancariaRepository.java`](src/main/java/com/example/ProyectoBancoJPA/repository/CuentaBancariaRepository.java): Interfaz para acceder y manipular datos de Cuentas Bancarias en la base de datos.
+  - [`TransaccionRepository.java`](src/main/java/com/example/ProyectoBancoJPA/repository/TransaccionRepository.java): Interfaz para acceder y manipular datos de Transacciones en la base de datos.
+  - [`TransaccionRepositoryImpl.java`](src/main/java/com/example/ProyectoBancoJPA/repository/TransaccionRepositoryImpl.java): Implementación personalizada de TransaccionRepository para operaciones específicas.
+  - [`UserRepository.java`](src/main/java/com/example/ProyectoBancoJPA/repository/UserRepository.java): Interfaz para acceder y manipular datos de Usuarios en la base de datos.
+
+- **service/**
+  - [`AuthService.java`](src/main/java/com/example/ProyectoBancoJPA/service/AuthService.java): Interfaz que define operaciones relacionadas con la autenticación.
+  - [`BolsilloService.java`](src/main/java/com/example/ProyectoBancoJPA/service/BolsilloService.java): Interfaz que define operaciones relacionadas con Bolsillos.
+  - [`BolsilloServiceImpl.java`](src/main/java/com/example/ProyectoBancoJPA/service/BolsilloServiceImpl.java): Implementación de BolsilloService.
+  - [`ClienteService.java`](src/main/java/com/example/ProyectoBancoJPA/service/ClienteService.java): Intes.
+- [`ClienteServiceImpl.java`](src/main/java/com/example/ProyectoBancoJPA/service/ClienteServiceImpl.java): Implementación de ClienteService.
+- [`CuentaBancariaService.java`](src/main/java/com/example/ProyectoBancoJPA/service/CuentaBancariaService.java): Interfaz que define operaciones relacionadas con Cuentas Bancarias.
+- [`CuentaBancariaServiceImpl.java`](src/main/java/com/example/ProyectoBancoJPA/service/CuentaBancariaServiceImpl.java): Implementación de CuentaBancariaService.
+- [`TransaccionService.java`](src/main/java/com/example/ProyectoBancoJPA/service/TransaccionService.java): Interfaz que define operaciones relacionadas con Transacciones.
+
+- **user/**
+  - [`Role.java`](src/main/java/com/example/ProyectoBancoJPA/user/Role.java): Clase que representa los roles de usuario.
+  - [`User.java`](src/main/java/com/example/ProyectoBancoJPA/user/User.java): Clase que representa a los usuarios del sistema.
 
 * Otros archivos y directorios de configuración, como application.properties.
 
