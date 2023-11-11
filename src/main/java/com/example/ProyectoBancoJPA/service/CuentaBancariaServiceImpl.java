@@ -55,8 +55,20 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
             throw new CuentaBancariaNotFoundException("No se encontró la cuenta bancaria con ID: " + idCuenta);
         }
     }
+
     @Override
-    public void deleteCuentaBancaria(Integer idCuenta) {
-        cuentaBancariaRepository.deleteById(idCuenta);
+    public void deleteCuentaBancaria(Integer idCuenta)  {
+        Optional<CuentaBancaria> cuentaBancariaOptional = cuentaBancariaRepository.findById(idCuenta);
+
+        if (cuentaBancariaOptional.isPresent()) {
+            CuentaBancaria cuentaBancaria = cuentaBancariaOptional.get();
+
+            if (cuentaBancaria.getBalance().compareTo(BigDecimal.ZERO) != 0) {
+                throw new ArithmeticException("No debe haber fondos en la cuenta para su eliminación");
+            }
+            cuentaBancariaRepository.delete(cuentaBancaria);
+        } else {
+            throw new ArithmeticException("No se encontró la cuenta bancaria con ID: " + idCuenta);
+        }
     }
 }
