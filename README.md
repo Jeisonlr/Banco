@@ -62,7 +62,9 @@ Siga los siguientes pasos para ejecutar el proyecto en su entorno local:
 
 ## Estructura del Proyecto
 
-Este proyecto sigue una estructura modularizada para facilitar la organización y mantenimiento del código. A continuación, se describe la jerarquía de carpetas y archivos en el directorio `src/main/java/com/example/ProyectoBancoJPA/`:
+Este proyecto sigue una estructura modularizada para facilitar la organización y mantenimiento del código. 
+
+A continuación, se describe la jerarquía de carpetas y archivos en el directorio `src/main/java/com/example/ProyectoBancoJPA/`:
 
 - **Auth/**
   - [`AuthResponse.java`](src/main/java/com/example/ProyectoBancoJPA/Auth/AuthResponse.java): Clase que representa la respuesta de autenticación.
