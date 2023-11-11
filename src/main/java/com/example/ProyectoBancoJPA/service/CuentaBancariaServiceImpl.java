@@ -1,6 +1,6 @@
 package com.example.ProyectoBancoJPA.service;
 
-import com.example.ProyectoBancoJPA.exceptions.CuentaBancariaNotFoundException;
+import com.example.ProyectoBancoJPA.exceptions.CuentaNoEncontradaException;
 import com.example.ProyectoBancoJPA.model.CuentaBancaria;
 import com.example.ProyectoBancoJPA.repository.CuentaBancariaRepository;
 import com.example.ProyectoBancoJPA.repository.ClienteRepository;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -38,10 +39,12 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
 
     @Override
     public CuentaBancaria getCuentaBancariaById(Integer idCuenta) {
-        return cuentaBancariaRepository.findById(idCuenta).orElse(null);
+        return cuentaBancariaRepository.findById(idCuenta)
+                .orElseThrow(() -> new NoSuchElementException("No se encontró la cuenta bancaria con ID: " + idCuenta));
     }
+
     @Override
-    public CuentaBancaria updateCuentaBancaria(Integer idCuenta, CuentaBancaria cuentaBancariaActualizada) throws CuentaBancariaNotFoundException {
+    public CuentaBancaria updateCuentaBancaria(Integer idCuenta, CuentaBancaria cuentaBancariaActualizada) throws CuentaNoEncontradaException {
         Optional<CuentaBancaria> cuentaBancariaExistenteOptional = cuentaBancariaRepository.findById(idCuenta);
 
         if (cuentaBancariaExistenteOptional.isPresent()) {
@@ -52,7 +55,7 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
 
             return cuentaBancariaRepository.save(cuentaBancariaExistente);
         } else {
-            throw new CuentaBancariaNotFoundException("No se encontró la cuenta bancaria con ID: " + idCuenta);
+            throw new CuentaNoEncontradaException("No se encontró la cuenta bancaria con ID: " + idCuenta);
         }
     }
 
@@ -68,7 +71,7 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
             }
             cuentaBancariaRepository.delete(cuentaBancaria);
         } else {
-            throw new ArithmeticException("No se encontró la cuenta bancaria con ID: " + idCuenta);
+            throw new CuentaNoEncontradaException("No se encontró la cuenta bancaria con ID: " + idCuenta);
         }
     }
 }

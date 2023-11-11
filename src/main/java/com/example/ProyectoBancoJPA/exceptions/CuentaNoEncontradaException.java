@@ -1,4 +1,8 @@
-package com.ProyectoIntegrador.Banco.Exceptions;
+package com.example.ProyectoBancoJPA.exceptions;
 
-public class CuentaNoEncontradaException extends Exception {
+public class CuentaNoEncontradaException extends RuntimeException {
+
+    public CuentaNoEncontradaException(String mensaje) {
+        super("La cuenta no existe");
+    }
 }

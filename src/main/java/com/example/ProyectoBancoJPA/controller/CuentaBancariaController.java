@@ -1,6 +1,6 @@
 package com.example.ProyectoBancoJPA.controller;
 
-import com.example.ProyectoBancoJPA.exceptions.CuentaBancariaNotFoundException;
+import com.example.ProyectoBancoJPA.exceptions.CuentaNoEncontradaException;
 import com.example.ProyectoBancoJPA.model.CuentaBancaria;
 import com.example.ProyectoBancoJPA.service.CuentaBancariaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,9 @@ public class CuentaBancariaController {
     }
 
     @PostMapping
-    public CuentaBancaria crearCuentaBancaria(@RequestBody CuentaBancaria cuentaBancaria){
+    public CuentaBancaria createCuentaBancaria(@RequestBody CuentaBancaria cuentaBancaria) {
+
+
         return this.cuentaBancariaService.createCuentaBancaria(cuentaBancaria);
     }
 
@@ -42,9 +44,13 @@ public class CuentaBancariaController {
         try {
             CuentaBancaria cuentaActualizada = cuentaBancariaService.updateCuentaBancaria(idCuenta, cuentaBancariaActualizada);
             return new ResponseEntity<>(cuentaActualizada, HttpStatus.OK);
-        } catch (CuentaBancariaNotFoundException e) {
+        } catch (CuentaNoEncontradaException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
+
+
+
+
 
