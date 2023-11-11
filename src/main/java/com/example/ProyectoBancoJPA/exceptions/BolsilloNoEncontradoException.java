@@ -1,4 +1,4 @@
-package com.ProyectoIntegrador.Banco.Exceptions;
+package com.example.ProyectoBancoJPA.exceptions;
 
 public class BolsilloNoEncontradoException extends Throwable {
     public BolsilloNoEncontradoException(String s) {

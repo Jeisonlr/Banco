@@ -1,11 +1,12 @@
 package com.example.ProyectoBancoJPA.service;
+import com.example.ProyectoBancoJPA.exceptions.ApiRequestException;
 import com.example.ProyectoBancoJPA.model.Cliente;
 import com.example.ProyectoBancoJPA.dto.ClienteDTO;
 
 import java.util.Optional;
 
 public interface ClienteService {
-    Cliente createCliente(Cliente cliente);
+    Cliente createCliente(Cliente cliente) throws ApiRequestException;
 
     Iterable<Cliente> getAllClientes();
 

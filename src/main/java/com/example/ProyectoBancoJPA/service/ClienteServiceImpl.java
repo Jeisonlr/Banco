@@ -1,5 +1,6 @@
 package com.example.ProyectoBancoJPA.service;
 
+import com.example.ProyectoBancoJPA.exceptions.ApiRequestException;
 import com.example.ProyectoBancoJPA.model.Cliente;
 import com.example.ProyectoBancoJPA.repository.ClienteRepository;
 import com.example.ProyectoBancoJPA.dto.ClienteDTO;
@@ -19,7 +20,17 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public Cliente createCliente(Cliente cliente) {
+    public Cliente createCliente(Cliente cliente) throws ApiRequestException {
+        if(cliente.getNombre()==null){
+            throw new ApiRequestException("El Cliente Debe Tener Un Nombre");
+        }else if(cliente.getApellido()==null){
+            throw new ApiRequestException("El Cliente Debe Tener Un Apellido");
+        }else if(cliente.getCedula()==null){
+            throw new ApiRequestException("El Cliente Debe Tener Una Cédula");
+        }
+        if (clienteRepository.existsByCedula(cliente.getCedula())) {
+            throw new ApiRequestException("La Cédula Es Invalida.");
+        }
         return clienteRepository.save(cliente);
     }
 
