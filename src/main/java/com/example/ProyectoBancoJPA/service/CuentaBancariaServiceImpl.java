@@ -27,7 +27,6 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
             throw new ArithmeticException("El saldo mínimo requerido es de $20000");
         }
 
-        // Si el balance es suficiente, guardar la cuenta bancaria
         return cuentaBancariaRepository.save(cuentaBancaria);
     }
 
