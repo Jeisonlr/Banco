@@ -118,11 +118,11 @@ Este proyecto sigue una estructura modularizada para facilitar la organización 
   - [`AuthService.java`](src/main/java/com/example/ProyectoBancoJPA/service/AuthService.java): Interfaz que define operaciones relacionadas con la autenticación.
   - [`BolsilloService.java`](src/main/java/com/example/ProyectoBancoJPA/service/BolsilloService.java): Interfaz que define operaciones relacionadas con Bolsillos.
   - [`BolsilloServiceImpl.java`](src/main/java/com/example/ProyectoBancoJPA/service/BolsilloServiceImpl.java): Implementación de BolsilloService.
-  - [`ClienteService.java`](src/main/java/com/example/ProyectoBancoJPA/service/ClienteService.java): Intes.
-- [`ClienteServiceImpl.java`](src/main/java/com/example/ProyectoBancoJPA/service/ClienteServiceImpl.java): Implementación de ClienteService.
-- [`CuentaBancariaService.java`](src/main/java/com/example/ProyectoBancoJPA/service/CuentaBancariaService.java): Interfaz que define operaciones relacionadas con Cuentas Bancarias.
-- [`CuentaBancariaServiceImpl.java`](src/main/java/com/example/ProyectoBancoJPA/service/CuentaBancariaServiceImpl.java): Implementación de CuentaBancariaService.
-- [`TransaccionService.java`](src/main/java/com/example/ProyectoBancoJPA/service/TransaccionService.java): Interfaz que define operaciones relacionadas con Transacciones.
+  - [`ClienteService.java`](src/main/java/com/example/ProyectoBancoJPA/service/ClienteService.java): Interfaz con la definición de los métodos relacionados a los clientes
+  - [`ClienteServiceImpl.java`](src/main/java/com/example/ProyectoBancoJPA/service/ClienteServiceImpl.java): Implementación de ClienteService.
+  - [`CuentaBancariaService.java`](src/main/java/com/example/ProyectoBancoJPA/service/CuentaBancariaService.java): Interfaz que define operaciones relacionadas con Cuentas Bancarias.
+  - [`CuentaBancariaServiceImpl.java`](src/main/java/com/example/ProyectoBancoJPA/service/CuentaBancariaServiceImpl.java): Implementación de CuentaBancariaService.
+  - [`TransaccionService.java`](src/main/java/com/example/ProyectoBancoJPA/service/TransaccionService.java): Interfaz que define operaciones relacionadas con Transacciones.
 
 - **user/**
   - [`Role.java`](src/main/java/com/example/ProyectoBancoJPA/user/Role.java): Clase que representa los roles de usuario.
