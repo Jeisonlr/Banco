@@ -1,8 +1,11 @@
 package com.example.ProyectoBancoJPA.controller;
 
+import com.example.ProyectoBancoJPA.exceptions.CuentaBancariaNotFoundException;
 import com.example.ProyectoBancoJPA.model.CuentaBancaria;
 import com.example.ProyectoBancoJPA.service.CuentaBancariaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +25,7 @@ public class CuentaBancariaController {
         return cuentaBancariaService.getAllCuentasBancarias();
     }
 
-    @GetMapping("/{idCuenta}")
+    @GetMapping("/cuentas")
     public CuentaBancaria getCuentaBancariaById(@PathVariable Integer idCuenta) {
         return cuentaBancariaService.getCuentaBancariaById(idCuenta);
     }
@@ -30,6 +33,18 @@ public class CuentaBancariaController {
     @PostMapping
     public CuentaBancaria crearCuentaBancaria(@RequestBody CuentaBancaria cuentaBancaria){
         return this.cuentaBancariaService.createCuentaBancaria(cuentaBancaria);
+    }
+
+    @PutMapping("/cuentas")
+    public ResponseEntity<CuentaBancaria> updateCuentaBancaria(
+            @PathVariable Integer idCuenta,
+            @RequestBody CuentaBancaria cuentaBancariaActualizada) {
+        try {
+            CuentaBancaria cuentaActualizada = cuentaBancariaService.updateCuentaBancaria(idCuenta, cuentaBancariaActualizada);
+            return new ResponseEntity<>(cuentaActualizada, HttpStatus.OK);
+        } catch (CuentaBancariaNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
 
