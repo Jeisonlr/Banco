@@ -1,5 +1,6 @@
 package com.example.ProyectoBancoJPA.service;
 
+import com.example.ProyectoBancoJPA.exceptions.CuentaBancariaNotFoundException;
 import com.example.ProyectoBancoJPA.model.CuentaBancaria;
 import com.example.ProyectoBancoJPA.repository.CuentaBancariaRepository;
 import com.example.ProyectoBancoJPA.repository.ClienteRepository;
@@ -39,9 +40,8 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
     public CuentaBancaria getCuentaBancariaById(Integer idCuenta) {
         return cuentaBancariaRepository.findById(idCuenta).orElse(null);
     }
-
     @Override
-    public CuentaBancaria updateCuentaBancaria(Integer idCuenta, CuentaBancaria cuentaBancariaActualizada) {
+    public CuentaBancaria updateCuentaBancaria(Integer idCuenta, CuentaBancaria cuentaBancariaActualizada) throws CuentaBancariaNotFoundException {
         Optional<CuentaBancaria> cuentaBancariaExistenteOptional = cuentaBancariaRepository.findById(idCuenta);
 
         if (cuentaBancariaExistenteOptional.isPresent()) {
@@ -52,7 +52,7 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
 
             return cuentaBancariaRepository.save(cuentaBancariaExistente);
         } else {
-            return null; // Manejo de error si la cuenta bancaria no se encuentra.
+            throw new CuentaBancariaNotFoundException("No se encontró la cuenta bancaria con ID: " + idCuenta);
         }
     }
     @Override
