@@ -1,5 +1,6 @@
 package com.example.ProyectoBancoJPA.controller;
 
+import com.example.ProyectoBancoJPA.exceptions.ApiRequestException;
 import com.example.ProyectoBancoJPA.model.Cliente;
 import com.example.ProyectoBancoJPA.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ClienteController {
     }
 
     @PostMapping ("/create")
-    public Cliente crearCliente(@RequestBody Cliente cliente){
+    public Cliente crearCliente(@RequestBody Cliente cliente) throws ApiRequestException {
         return this.clienteService.createCliente(cliente);
     }
 }

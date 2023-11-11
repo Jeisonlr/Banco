@@ -15,5 +15,5 @@ public interface CuentaBancariaService {
     void deleteCuentaBancaria(Integer idCuenta);
 
 
-    // Agrega otros métodos para transferencias de fondos, pagos, etc.
+
 }

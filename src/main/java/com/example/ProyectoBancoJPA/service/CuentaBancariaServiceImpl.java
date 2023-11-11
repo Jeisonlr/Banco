@@ -2,15 +2,12 @@ package com.example.ProyectoBancoJPA.service;
 
 import com.example.ProyectoBancoJPA.model.CuentaBancaria;
 import com.example.ProyectoBancoJPA.repository.CuentaBancariaRepository;
-import com.example.ProyectoBancoJPA.dto.CuentaBancariaDTO;
-import com.example.ProyectoBancoJPA.model.Cliente;
 import com.example.ProyectoBancoJPA.repository.ClienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 public class CuentaBancariaServiceImpl implements CuentaBancariaService {
@@ -23,7 +20,14 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
     }
 
     @Override
-    public CuentaBancaria createCuentaBancaria(CuentaBancaria cuentaBancaria) {
+    public CuentaBancaria createCuentaBancaria(CuentaBancaria cuentaBancaria) throws ArithmeticException {
+        // Validar que el balance sea mayor o igual a $20000
+        BigDecimal saldoMinimo = new BigDecimal("20000");
+        if (cuentaBancaria.getBalance().compareTo(saldoMinimo) < 0) {
+            throw new ArithmeticException("El saldo mínimo requerido es de $20000");
+        }
+
+        // Si el balance es suficiente, guardar la cuenta bancaria
         return cuentaBancariaRepository.save(cuentaBancaria);
     }
 
@@ -52,10 +56,8 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
             return null; // Manejo de error si la cuenta bancaria no se encuentra.
         }
     }
-
     @Override
     public void deleteCuentaBancaria(Integer idCuenta) {
         cuentaBancariaRepository.deleteById(idCuenta);
     }
 }
-
