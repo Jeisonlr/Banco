@@ -35,7 +35,6 @@ public class TransaccionController {
     public Transaccion updateTransaccion(@PathVariable Integer id, @RequestBody Transaccion updatedTransaccion) {
         return transaccionService.updateTransaccion(id, updatedTransaccion);
     }
-
     @DeleteMapping("/{id}")
     public void deleteTransaccion(@PathVariable Integer id) {
         transaccionService.deleteTransaccion(id);
