@@ -41,7 +41,6 @@ public class TransaccionController {
         transaccionService.deleteTransaccion(id);
     }
 
-
     @PostMapping("/transferencia-interna")
     public ResponseEntity<Transaccion> realizarTransferenciaInterna(
             @RequestBody TransferenciaInternaRequest request) {
