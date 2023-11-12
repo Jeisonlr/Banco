@@ -5,23 +5,28 @@ import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class CuentaBancariaDTO {
-    private Integer saldo;
+    private BigDecimal balance;
     private Date fecha_apertura;
+    private String cedula;
 
-
-    public CuentaBancariaDTO(Integer saldo, Date fecha_apertura) {
-        this.saldo = saldo;
-        this.fecha_apertura = fecha_apertura;
+    public CuentaBancariaDTO(BigDecimal balance, String cedula) {
+        this.balance = balance;
+        this.fecha_apertura = new Date();
+        this.cedula = cedula;
     }
 
-    public Integer getSaldo() {
-        return saldo;
+    public BigDecimal getBalance() {
+        return balance;
     }
 
-
+    public String getCedulaCliente() {
+        return cedula;
+    }
     public Date getFecha_apertura() {
         return fecha_apertura;
     }

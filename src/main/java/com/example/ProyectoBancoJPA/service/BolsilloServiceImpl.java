@@ -1,7 +1,10 @@
 package com.example.ProyectoBancoJPA.service;
 
+import com.example.ProyectoBancoJPA.exceptions.ApiRequestException;
 import com.example.ProyectoBancoJPA.model.Bolsillo;
+import com.example.ProyectoBancoJPA.model.Cliente;
 import com.example.ProyectoBancoJPA.repository.BolsilloRepository;
+import com.example.ProyectoBancoJPA.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +14,22 @@ import java.util.Optional;
 @Service
 public class  BolsilloServiceImpl implements BolsilloService {
     private  BolsilloRepository bolsilloRepository;
+    private ClienteRepository clienteRepository;
 
     @Autowired
-    public BolsilloServiceImpl(BolsilloRepository bolsilloRepository) {
+    public BolsilloServiceImpl(BolsilloRepository bolsilloRepository, ClienteRepository clienteRepository) {
         this.bolsilloRepository = bolsilloRepository;
+        this.clienteRepository = clienteRepository;
     }
 
     @Override
-    public Bolsillo createBolsillo(Bolsillo bolsillo) {
-        return bolsilloRepository.save(bolsillo);
+    public Bolsillo createBolsillo(Bolsillo bolsillo) throws ApiRequestException {
+        Optional<Cliente> clienteExistenteOptional = clienteRepository.findByCedula(bolsillo.getCuentaBancaria().toString());
+        if (clienteExistenteOptional.isPresent()) {
+            return bolsilloRepository.save(bolsillo);
+        } else {
+            throw new ApiRequestException("No se pudo crear el bolsillo por que la cuenta bancaria asociada no existe.");
+        }
     }
 
     @Override

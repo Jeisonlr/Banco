@@ -1,6 +1,5 @@
 package com.example.ProyectoBancoJPA.dto;
 
-import jakarta.persistence.Column;
 
 public class ClienteDTO {
     private Integer id;

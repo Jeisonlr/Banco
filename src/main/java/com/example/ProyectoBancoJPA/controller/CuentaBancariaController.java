@@ -1,5 +1,7 @@
 package com.example.ProyectoBancoJPA.controller;
 
+import com.example.ProyectoBancoJPA.dto.CuentaBancariaDTO;
+import com.example.ProyectoBancoJPA.exceptions.ApiRequestException;
 import com.example.ProyectoBancoJPA.exceptions.CuentaNoEncontradaException;
 import com.example.ProyectoBancoJPA.model.CuentaBancaria;
 import com.example.ProyectoBancoJPA.service.CuentaBancariaService;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cuentas")
+@RequestMapping("api/v1/cuentas")
 public class CuentaBancariaController {
     private final CuentaBancariaService cuentaBancariaService;
 
@@ -20,24 +22,22 @@ public class CuentaBancariaController {
         this.cuentaBancariaService = cuentaBancariaService;
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public List<CuentaBancaria> getAllCuentasBancarias() {
         return cuentaBancariaService.getAllCuentasBancarias();
     }
 
-    @GetMapping("/cuentas")
+    @GetMapping("/getById")
     public CuentaBancaria getCuentaBancariaById(@PathVariable Integer idCuenta) {
         return cuentaBancariaService.getCuentaBancariaById(idCuenta);
     }
 
-    @PostMapping
-    public CuentaBancaria createCuentaBancaria(@RequestBody CuentaBancaria cuentaBancaria) {
-
-
-        return this.cuentaBancariaService.createCuentaBancaria(cuentaBancaria);
+    @PostMapping("/create")
+    public CuentaBancaria createCuentaBancaria(@RequestBody CuentaBancariaDTO cuentaBancariaDTO) throws ArithmeticException, ApiRequestException {
+        return this.cuentaBancariaService.createCuentaBancaria(cuentaBancariaDTO);
     }
 
-    @PutMapping("/cuentas")
+    @PutMapping("/update")
     public ResponseEntity<CuentaBancaria> updateCuentaBancaria(
             @PathVariable Integer idCuenta,
             @RequestBody CuentaBancaria cuentaBancariaActualizada) {
@@ -47,6 +47,11 @@ public class CuentaBancariaController {
         } catch (CuentaNoEncontradaException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @DeleteMapping("/delete/{idCuenta}")
+    public void deleteCuenta(@PathVariable Integer idCuenta) {
+        this.cuentaBancariaService.deleteCuentaBancaria(idCuenta);
     }
 }
 

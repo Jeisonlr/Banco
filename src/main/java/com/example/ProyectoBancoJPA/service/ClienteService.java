@@ -6,16 +6,15 @@ import com.example.ProyectoBancoJPA.dto.ClienteDTO;
 import java.util.Optional;
 
 public interface ClienteService {
-    Cliente createCliente(Cliente cliente) throws ApiRequestException;
+    Cliente createCliente(ClienteDTO clienteDTO) throws ApiRequestException;
 
     Iterable<Cliente> getAllClientes();
 
     Optional<Cliente> getClienteById(Integer id);
 
-    Cliente updateCliente(Integer id, Cliente clienteActualizado);
+    Cliente updateCliente(Cliente clienteActualizado) throws ApiRequestException;
 
     void deleteCliente(Integer id);
 
-    ClienteDTO crearCliente(ClienteDTO clienteDTO);
 
 }

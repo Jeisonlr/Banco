@@ -22,11 +22,11 @@ public class Cliente {
     private String apellido;
     @Column(name = "edad",nullable = false)
     private Integer edad;
-    @Column(name = "correo",nullable = false)
+    @Column(name = "correo",nullable = true)
     private String correo;
-    @Column(name = "municipio",nullable = false)
+    @Column(name = "municipio",nullable = true)
     private String municipio;
-    @Column(name = "telefono",nullable = false)
+    @Column(name = "telefono",nullable = true)
     private String telefono;
 
     public Cliente(){

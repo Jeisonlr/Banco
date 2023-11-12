@@ -1,5 +1,6 @@
 package com.example.ProyectoBancoJPA.controller;
 
+import com.example.ProyectoBancoJPA.exceptions.ApiRequestException;
 import com.example.ProyectoBancoJPA.model.Bolsillo;
 import com.example.ProyectoBancoJPA.service.BolsilloService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/bolsillos")
+@RequestMapping("api/v1/bolsillos")
 public class BolsilloController {
     private final BolsilloService bolsilloService;
 
@@ -31,7 +32,7 @@ public class BolsilloController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor",
                     content = @Content)})
     @PostMapping("/create")
-    public Bolsillo crearBolsillo(@RequestBody Bolsillo bolsillo){
+    public Bolsillo crearBolsillo(@RequestBody Bolsillo bolsillo) throws ApiRequestException {
         return this.bolsilloService.createBolsillo(bolsillo);
     }
 
