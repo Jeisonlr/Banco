@@ -8,9 +8,13 @@ import com.example.ProyectoBancoJPA.repository.UserRepository;
 import com.example.ProyectoBancoJPA.user.Role;
 import com.example.ProyectoBancoJPA.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,31 +28,39 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        UserDetails user =userRepository.findByUsername(request.getUsername()).orElseThrow();
-        String token=jwtService.getToken(user);
-        return AuthResponse.builder()
-                .token(token)
-                .build();
-
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+            UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new UsernameNotFoundException("usuario no encontrado"));
+            String token = jwtService.getToken(user);
+            return AuthResponse.builder()
+                    .token(token)
+                    .build();
+        } catch (AuthenticationException e) {
+            throw new AuthenticationException("autenticación falló", e) {
+            };
+        }
     }
 
     public AuthResponse register(RegisterRequest request) {
-        User user = User.builder()
-                .username(request.getUsername())
-                .password(passwordEncoder.encode( request.getPassword()))
-                .firstname(request.getFirstname())
-                .lastname(request.getLastname())
-                .country(request.getCountry())
-                .role(Role.USER)
-                .build();
+        try {
+            User user = User.builder()
+                    .username(request.getUsername())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .firstname(request.getFirstname())
+                    .lastname(request.getLastname())
+                    .country(request.getCountry())
+                    .role(Role.USER)
+                    .build();
 
-        userRepository.save(user);
+            userRepository.save(user);
 
-        return AuthResponse.builder()
-                .token(jwtService.getToken(user))
-                .build();
-
+            return AuthResponse.builder()
+                    .token(jwtService.getToken(user))
+                    .build();
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateKeyException("Username already exists", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Registro falló", e);
+        }
     }
-
 }
