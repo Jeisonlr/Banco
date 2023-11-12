@@ -27,10 +27,11 @@ A continuación, se presentan los diagramas UML que representan la estructura y 
     </td>
     <td>
       <h3>Diagrama Entidad-Relación (ER)</h3>
-      <img src="https://github.com/Jeisonlr/Banco/assets/74073693/f90fa8c6-9ae5-48c5-abb0-3bb5cb5830bf" alt="Diagrama Entidad-Relación">
+      <img src="https://github.com/Jeisonlr/Banco/assets/74073693/fa68600a-6e81-42c9-86a4-9c561fed55fe" alt="Diagrama Entidad-Relación">
     </td>
   </tr>
 </table>
+
 
 ## Requisitos del Programa
 Para ejecutar este programa de manera exitosa, es necesario tener las siguientes herramientas y tecnologías instaladas en su entorno de desarrollo:
