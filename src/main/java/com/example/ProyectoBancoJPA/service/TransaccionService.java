@@ -2,7 +2,6 @@ package com.example.ProyectoBancoJPA.service;
 
 import com.example.ProyectoBancoJPA.exceptions.BolsilloNoEncontradoException;
 import com.example.ProyectoBancoJPA.exceptions.CuentaNoEncontradaException;
-import com.example.ProyectoBancoJPA.exceptions.TransaccionNoEncontradaException;
 import com.example.ProyectoBancoJPA.model.Transaccion;
 import com.example.ProyectoBancoJPA.repository.BolsilloRepository;
 import com.example.ProyectoBancoJPA.repository.CuentaBancariaRepository;
