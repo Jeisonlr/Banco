@@ -1,15 +1,13 @@
-package com.example.ProyectoBancoJPA.controller;
-import com.example.ProyectoBancoJPA.Auth.AuthResponse;
+package com.example.ProyectoBancoJPA.Auth;
+
 import com.example.ProyectoBancoJPA.Request.LoginRequest;
 import com.example.ProyectoBancoJPA.Request.RegisterRequest;
-import com.example.ProyectoBancoJPA.service.AuthService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/auth")

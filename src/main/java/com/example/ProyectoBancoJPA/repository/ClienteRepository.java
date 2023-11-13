@@ -1,9 +1,10 @@
 package com.example.ProyectoBancoJPA.repository;
 
-import com.example.ProyectoBancoJPA.model.Transaccion;
+import com.example.ProyectoBancoJPA.model.Cliente;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TransaccionRepository extends CrudRepository<Transaccion, Integer> {
+public interface ClienteRepository extends CrudRepository<Cliente, Integer> {
+    boolean existsByCedula(String cedula);
 }

@@ -1,6 +1,5 @@
-package com.example.ProyectoBancoJPA.repository;
+package com.example.ProyectoBancoJPA.user;
 
-import com.example.ProyectoBancoJPA.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

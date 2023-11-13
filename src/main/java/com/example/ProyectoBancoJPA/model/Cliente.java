@@ -1,32 +1,47 @@
 package com.example.ProyectoBancoJPA.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+@Data
+@AllArgsConstructor
 @Entity
 @Table(name = "cliente")
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "cliente_generator")
-    @SequenceGenerator(name = "cliente_generator",allocationSize = 1)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(name = "cedula", nullable = false)
+    private String cedula;
     @Column(name = "nombre",nullable = false)
     private String nombre;
     @Column(name = "apellido",nullable = false)
     private String apellido;
-    @Column(name = "fechaNacimiento",nullable = false)
-    private LocalDate fechaNacimiento;
+    @Column(name = "edad",nullable = false)
+    private Integer edad;
+    @Column(name = "correo",nullable = false)
+    private String correo;
+    @Column(name = "municipio",nullable = false)
+    private String municipio;
+    @Column(name = "telefono",nullable = false)
+    private String telefono;
 
     public Cliente(){
     }
 
-    public Cliente(long id, String nombre, String apellido, LocalDate fechaNacimiento) {
+    public Cliente(Integer id, String cedula, String nombre, String apellido, Integer edad, String correo, String municipio, String telefono) {
         this.id = id;
+        this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
-
+        this.edad = edad;
+        this.correo = correo;
+        this.municipio = municipio;
+        this.telefono = telefono;
     }
 
     @Override
@@ -35,15 +50,23 @@ public class Cliente {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
-                ", fechaNacimiento=" + fechaNacimiento +
+                ", edad=" + edad +
                 '}';
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "infoContacto_id")
-    private  InfoContacto infoContacto;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<CuentaBancaria> cuentasBancarias = new ArrayList<>();
 
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
+    }
 
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 }

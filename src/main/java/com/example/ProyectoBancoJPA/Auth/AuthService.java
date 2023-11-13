@@ -1,12 +1,11 @@
-package com.example.ProyectoBancoJPA.service;
+package com.example.ProyectoBancoJPA.Auth;
 
-import com.example.ProyectoBancoJPA.Auth.AuthResponse;
 import com.example.ProyectoBancoJPA.Jwt.JwtService;
 import com.example.ProyectoBancoJPA.Request.LoginRequest;
 import com.example.ProyectoBancoJPA.Request.RegisterRequest;
-import com.example.ProyectoBancoJPA.repository.UserRepository;
 import com.example.ProyectoBancoJPA.user.Role;
 import com.example.ProyectoBancoJPA.user.User;
+import com.example.ProyectoBancoJPA.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;

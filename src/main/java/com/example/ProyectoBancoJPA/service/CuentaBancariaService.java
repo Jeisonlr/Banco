@@ -1,22 +1,20 @@
 package com.example.ProyectoBancoJPA.service;
-
+import com.example.ProyectoBancoJPA.exceptions.CuentaNoEncontradaException;
 import com.example.ProyectoBancoJPA.model.CuentaBancaria;
-import com.example.ProyectoBancoJPA.repository.CuentaBancariaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class CuentaBancariaService {
-    private CuentaBancariaRepository cuentaBancariaRepository;
+import java.util.List;
 
-    @Autowired
-    public CuentaBancariaService(CuentaBancariaRepository cuentaBancariaRepository) {
-        this.cuentaBancariaRepository = cuentaBancariaRepository;
-    }
+public interface CuentaBancariaService {
+    CuentaBancaria createCuentaBancaria(CuentaBancaria cuentaBancaria);
 
-    public CuentaBancaria crear(CuentaBancaria cuentaBancaria) {
-        return this.cuentaBancariaRepository.save(cuentaBancaria);
-        }
+    List<CuentaBancaria> getAllCuentasBancarias();
 
-    }
+    CuentaBancaria getCuentaBancariaById(Integer idCuenta);
 
+    CuentaBancaria updateCuentaBancaria(Integer idCuenta, CuentaBancaria cuentaBancariaActualizada) throws CuentaNoEncontradaException;
+
+    void deleteCuentaBancaria(Integer idCuenta);
+
+
+
+}
