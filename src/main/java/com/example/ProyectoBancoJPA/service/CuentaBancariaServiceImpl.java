@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -40,7 +39,7 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
     @Override
     public CuentaBancaria getCuentaBancariaById(Integer idCuenta) {
         return cuentaBancariaRepository.findById(idCuenta)
-                .orElseThrow(() -> new NoSuchElementException("No se encontró la cuenta bancaria con ID: " + idCuenta));
+                .orElseThrow(() -> new CuentaNoEncontradaException("No se encontró la cuenta bancaria con ID: " + idCuenta));
     }
 
     @Override

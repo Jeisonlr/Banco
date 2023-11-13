@@ -25,7 +25,7 @@ public class CuentaBancariaController {
         return cuentaBancariaService.getAllCuentasBancarias();
     }
 
-    @GetMapping("/cuentas")
+    @GetMapping
     public CuentaBancaria getCuentaBancariaById(@PathVariable Integer idCuenta) {
         return cuentaBancariaService.getCuentaBancariaById(idCuenta);
     }
@@ -37,7 +37,7 @@ public class CuentaBancariaController {
         return this.cuentaBancariaService.createCuentaBancaria(cuentaBancaria);
     }
 
-    @PutMapping("/cuentas")
+    @PutMapping
     public ResponseEntity<CuentaBancaria> updateCuentaBancaria(
             @PathVariable Integer idCuenta,
             @RequestBody CuentaBancaria cuentaBancariaActualizada) {
