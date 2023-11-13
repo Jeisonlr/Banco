@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,9 +35,10 @@ public class AuthService {
             return AuthResponse.builder()
                     .token(token)
                     .build();
-        } catch (AuthenticationException e) {
-            throw new AuthenticationException("autenticación falló", e) {
-            };
+        } catch (BadCredentialsException e) {
+            throw new BadCredentialsException("Contraseña incorrecta", e);
+        }  catch (UsernameNotFoundException e) {
+            throw new UsernameNotFoundException("Nombre de usuario no encontrado", e);
         }
     }
 
@@ -57,7 +59,7 @@ public class AuthService {
                     .token(jwtService.getToken(user))
                     .build();
         } catch (DataIntegrityViolationException e) {
-            throw new DuplicateKeyException("Username already exists", e);
+            throw new DuplicateKeyException("el nombre de usuario ya existe", e);
         } catch (Exception e) {
             throw new RuntimeException("Registro falló", e);
         }
