@@ -1,7 +1,11 @@
 package com.example.ProyectoBancoJPA.service;
 
+import com.example.ProyectoBancoJPA.exceptions.BolsilloNoEncontradoException;
+import com.example.ProyectoBancoJPA.exceptions.ClienteNoEncontradoException;
 import com.example.ProyectoBancoJPA.model.Bolsillo;
+import com.example.ProyectoBancoJPA.model.CuentaBancaria;
 import com.example.ProyectoBancoJPA.repository.BolsilloRepository;
+import com.example.ProyectoBancoJPA.repository.CuentaBancariaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +15,19 @@ import java.util.Optional;
 @Service
 public class  BolsilloServiceImpl implements BolsilloService {
     private  BolsilloRepository bolsilloRepository;
-
+    private  CuentaBancariaRepository cuentaBancariaRepository;
     @Autowired
-    public BolsilloServiceImpl(BolsilloRepository bolsilloRepository) {
+    public BolsilloServiceImpl(BolsilloRepository bolsilloRepository, CuentaBancariaRepository cuentaBancariaRepository) {
         this.bolsilloRepository = bolsilloRepository;
+        this.cuentaBancariaRepository =     cuentaBancariaRepository;
     }
 
     @Override
     public Bolsillo createBolsillo(Bolsillo bolsillo) {
+        CuentaBancaria cuentaBancariaAsociada = bolsillo.getCuentaBancaria();
+        if (cuentaBancariaAsociada == null || cuentaBancariaRepository.findById(cuentaBancariaAsociada.getIdCuenta()).isEmpty()) {
+            throw new ClienteNoEncontradoException("Es necesario un Cliente para crear la cuenta bancaria");
+        }
         return bolsilloRepository.save(bolsillo);
     }
 
@@ -29,7 +38,8 @@ public class  BolsilloServiceImpl implements BolsilloService {
 
     @Override
     public Bolsillo getBolsilloById(Integer id) {
-        return bolsilloRepository.findById(id).orElse(null);
+
+        return bolsilloRepository.findById(id).orElseThrow(() -> new BolsilloNoEncontradoException("No se encontró la cuenta bancaria con ID: " + id));
     }
 
     @Override
@@ -45,7 +55,7 @@ public class  BolsilloServiceImpl implements BolsilloService {
 
             return bolsilloRepository.save(bolsilloExistente);
         } else {
-            return null; // Manejo de error si el bolsillo no se encuentra.
+            throw new BolsilloNoEncontradoException("No se encontró la cuenta bancaria con ID: " + id);
         }
     }
 

@@ -1,6 +1,8 @@
 package com.example.ProyectoBancoJPA.service;
 
+import com.example.ProyectoBancoJPA.exceptions.ClienteNoEncontradoException;
 import com.example.ProyectoBancoJPA.exceptions.CuentaNoEncontradaException;
+import com.example.ProyectoBancoJPA.model.Cliente;
 import com.example.ProyectoBancoJPA.model.CuentaBancaria;
 import com.example.ProyectoBancoJPA.repository.CuentaBancariaRepository;
 import com.example.ProyectoBancoJPA.repository.ClienteRepository;
@@ -26,6 +28,10 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
         BigDecimal saldoMinimo = new BigDecimal("20000");
         if (cuentaBancaria.getBalance().compareTo(saldoMinimo) < 0) {
             throw new ArithmeticException("El saldo mínimo requerido es de $20000");
+        }
+        Cliente clienteAsociado = cuentaBancaria.getCliente();
+        if (clienteAsociado == null || clienteRepository.findById(clienteAsociado.getId()).isEmpty()) {
+            throw new ClienteNoEncontradoException("Es necesario un Cliente para crear la cuenta bancaria");
         }
 
         return cuentaBancariaRepository.save(cuentaBancaria);

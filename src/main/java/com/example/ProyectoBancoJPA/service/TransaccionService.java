@@ -28,10 +28,6 @@ public class TransaccionService {
         return transaccionRepository.findById(id).orElse(null);
     }
 
-    public Transaccion createTransaccion(Transaccion transaccion) {
-        return transaccionRepository.save(transaccion);
-    }
-
     public Transaccion updateTransaccion(Integer id, Transaccion updatedTransaccion) {
         Transaccion existingTransaccion = transaccionRepository.findById(id).orElse(null);
         if (existingTransaccion != null) {

@@ -1,6 +1,7 @@
 package com.example.ProyectoBancoJPA.service;
 
 import com.example.ProyectoBancoJPA.exceptions.ApiRequestException;
+import com.example.ProyectoBancoJPA.exceptions.ClienteNoEncontradoException;
 import com.example.ProyectoBancoJPA.model.Cliente;
 import com.example.ProyectoBancoJPA.repository.ClienteRepository;
 import com.example.ProyectoBancoJPA.dto.ClienteDTO;
@@ -40,8 +41,9 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public Optional<Cliente> getClienteById(Integer id) {
-        return clienteRepository.findById(id);
+    public Cliente getClienteById(Integer id) {
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new ClienteNoEncontradoException("No se encontró el cliente con ID: " + id));
     }
 
     @Override
