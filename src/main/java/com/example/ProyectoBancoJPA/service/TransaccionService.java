@@ -2,7 +2,7 @@ package com.example.ProyectoBancoJPA.service;
 
 import com.example.ProyectoBancoJPA.exceptions.BolsilloNoEncontradoException;
 import com.example.ProyectoBancoJPA.exceptions.CuentaNoEncontradaException;
-import com.example.ProyectoBancoJPA.exceptions.transaccionNoEncontradaException;
+import com.example.ProyectoBancoJPA.exceptions.TransaccionNoEncontradaException;
 import com.example.ProyectoBancoJPA.model.Transaccion;
 import com.example.ProyectoBancoJPA.repository.BolsilloRepository;
 import com.example.ProyectoBancoJPA.repository.CuentaBancariaRepository;
@@ -34,7 +34,7 @@ public class TransaccionService {
 
     public Transaccion getTransaccionById(Integer id) {
         return transaccionRepository.findById(id).
-                orElseThrow(() -> new transaccionNoEncontradaException("No se encontró esta transacción: " + id));}
+                orElseThrow(() -> new TransaccionNoEncontradaException("No se encontró esta transacción: " + id));}
 
     public Transaccion updateTransaccion(Integer id, Transaccion updatedTransaccion) {
         Transaccion existingTransaccion = transaccionRepository.findById(id).orElse(null);
@@ -45,7 +45,7 @@ public class TransaccionService {
             return transaccionRepository.save(existingTransaccion);
         }
         else {
-            throw new transaccionNoEncontradaException("No se encontró esta transacción: " + id);}
+            throw new TransaccionNoEncontradaException("No se encontró esta transacción: " + id);}
 
     }
 

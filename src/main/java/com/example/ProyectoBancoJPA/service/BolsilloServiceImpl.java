@@ -1,5 +1,4 @@
 package com.example.ProyectoBancoJPA.service;
-
 import com.example.ProyectoBancoJPA.exceptions.BolsilloNoEncontradoException;
 import com.example.ProyectoBancoJPA.exceptions.ClienteNoEncontradoException;
 import com.example.ProyectoBancoJPA.model.Bolsillo;
@@ -15,13 +14,13 @@ import java.util.Optional;
 @Service
 public class  BolsilloServiceImpl implements BolsilloService {
     private  BolsilloRepository bolsilloRepository;
-    private  CuentaBancariaRepository cuentaBancariaRepository;
+    private CuentaBancariaRepository cuentaBancariaRepository;
+
     @Autowired
     public BolsilloServiceImpl(BolsilloRepository bolsilloRepository, CuentaBancariaRepository cuentaBancariaRepository) {
         this.bolsilloRepository = bolsilloRepository;
-        this.cuentaBancariaRepository =     cuentaBancariaRepository;
+        this.cuentaBancariaRepository = cuentaBancariaRepository;
     }
-
     @Override
     public Bolsillo createBolsillo(Bolsillo bolsillo) {
         CuentaBancaria cuentaBancariaAsociada = bolsillo.getCuentaBancaria();
@@ -38,7 +37,6 @@ public class  BolsilloServiceImpl implements BolsilloService {
 
     @Override
     public Bolsillo getBolsilloById(Integer id) {
-
         return bolsilloRepository.findById(id).orElseThrow(() -> new BolsilloNoEncontradoException("No se encontró la cuenta bancaria con ID: " + id));
     }
 

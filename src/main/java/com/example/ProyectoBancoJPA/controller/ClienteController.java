@@ -26,7 +26,7 @@ public class ClienteController {
 
     @GetMapping("/{cedula}")
     public Optional<Cliente> getClienteByCedula(@PathVariable Integer cedula) {
-        return clienteService.getClienteById(cedula);
+        return Optional.ofNullable(clienteService.getClienteById(cedula));
     }
 
     @PostMapping ("/create")
