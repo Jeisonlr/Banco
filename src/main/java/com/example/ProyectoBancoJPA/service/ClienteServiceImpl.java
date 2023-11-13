@@ -4,7 +4,6 @@ import com.example.ProyectoBancoJPA.exceptions.ApiRequestException;
 import com.example.ProyectoBancoJPA.exceptions.ClienteNoEncontradoException;
 import com.example.ProyectoBancoJPA.model.Cliente;
 import com.example.ProyectoBancoJPA.repository.ClienteRepository;
-import com.example.ProyectoBancoJPA.dto.ClienteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,23 +61,6 @@ public class ClienteServiceImpl implements ClienteService {
         } else {
             return null;
         }
-    }
-
-    @Override
-    public ClienteDTO crearCliente(ClienteDTO clienteDTO) {
-        Random random = new Random();
-        Integer id = random.nextInt(10001);
-        Cliente cliente = new Cliente(
-                id,
-                clienteDTO.getCedula(),
-                clienteDTO.getNombre(),
-                clienteDTO.getApellido(),
-                clienteDTO.getEdad(),
-                null,
-                null,
-                null);
-        this.clienteRepository.save(cliente);
-        return clienteDTO;
     }
 
 
