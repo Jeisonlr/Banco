@@ -20,24 +20,24 @@ public class CuentaBancariaController {
         this.cuentaBancariaService = cuentaBancariaService;
     }
 
-    @GetMapping
+    @GetMapping("/get-all")
     public List<CuentaBancaria> getAllCuentasBancarias() {
         return cuentaBancariaService.getAllCuentasBancarias();
     }
 
-    @GetMapping
+    @GetMapping("/get/{id}")
     public CuentaBancaria getCuentaBancariaById(@PathVariable Integer idCuenta) {
         return cuentaBancariaService.getCuentaBancariaById(idCuenta);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public CuentaBancaria createCuentaBancaria(@RequestBody CuentaBancaria cuentaBancaria) {
 
 
         return this.cuentaBancariaService.createCuentaBancaria(cuentaBancaria);
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public ResponseEntity<CuentaBancaria> updateCuentaBancaria(
             @PathVariable Integer idCuenta,
             @RequestBody CuentaBancaria cuentaBancariaActualizada) {
