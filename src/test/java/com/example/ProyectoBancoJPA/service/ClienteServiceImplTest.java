@@ -1,6 +1,7 @@
 package com.example.ProyectoBancoJPA.service;
 
 import com.example.ProyectoBancoJPA.exceptions.ApiRequestException;
+import com.example.ProyectoBancoJPA.exceptions.ClienteNoEncontradoException;
 import com.example.ProyectoBancoJPA.model.Cliente;
 import com.example.ProyectoBancoJPA.repository.ClienteRepository;
 import com.example.ProyectoBancoJPA.service.ClienteServiceImpl;
@@ -19,8 +20,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ClienteServiceImplTest {
@@ -88,13 +89,51 @@ class ClienteServiceImplTest {
     }
 
     @Test
-    void crearClienteSinEdad() throws ApiRequestException {
+    void crearClienteSinEdadCorrecta() throws ApiRequestException {
 
         Cliente clienteGuardado = this.clienteServiceImpl.createCliente(cliente);
-        cliente.setEdad(null);
+        cliente.setEdad(14);
 
         ApiRequestException excepcion = assertThrows(ApiRequestException.class,
                 () -> clienteServiceImpl.createCliente(cliente));
+    }
+    @Test
+    void getAllClientes() {
+        // Configuración del repositorio para devolver una lista de clientes
+        when(clienteRepository.findAll()).thenReturn(List.of(cliente));
+
+        // Llamada al método
+        Iterable<Cliente> clientes = clienteServiceImpl.getAllClientes();
+
+        // Verificación de la lista de clientes
+        assertNotNull(clientes);
+        assertTrue(clientes.iterator().hasNext());
+    }
+
+
+
+    @Test
+    void getClienteByIdNoExistente() {
+        // Configuración del repositorio para devolver un cliente vacío
+        when(clienteRepository.findById(2)).thenReturn(Optional.empty());
+
+        // Llamada al método y manejo de la excepción
+        ClienteNoEncontradoException excepcion = assertThrows(ClienteNoEncontradoException.class,
+                () -> clienteServiceImpl.getClienteById(2));
+    }
+
+
+    @Test
+    void updateClienteNoExistente() {
+        when(clienteRepository.findById(2)).thenReturn(Optional.empty());
+        Cliente clienteModificado = clienteServiceImpl.updateCliente(2, new Cliente());
+        assertNull(clienteModificado);
+    }
+
+    @Test
+    void deleteCliente() {
+        clienteServiceImpl.deleteCliente(1);
+        verify(clienteRepository, times(1)).deleteById(1);
     }
 
 }
