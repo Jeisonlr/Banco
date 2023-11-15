@@ -58,7 +58,8 @@ Para ejecutar este programa de manera exitosa, es necesario tener las siguientes
 - **Swagger:** Como herramienta de documentación, Swagger simplifica la comprensión y prueba de la API, proporcionando una descripción clara de los endpoints y facilitando la interacción con la aplicación.
   
 - **Postman:** Esta plataforma juega un papel crucial en el desarrollo y prueba de APIs, simplificando la validación de endpoints y mejorando la interactividad con la API a través de sus características avanzadas.
-[Herramientas](https://skills.thijs.gg/icons?i=idea,java,spring,maven,mysql,git,github,githubactions,postman)
+
+![Herramientas](https://skills.thijs.gg/icons?i=idea,java,spring,maven,mysql,git,github,githubactions,postman)
 
 ## Instrucciones de Ejecución
 
