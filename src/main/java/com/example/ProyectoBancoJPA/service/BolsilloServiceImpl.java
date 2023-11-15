@@ -59,7 +59,12 @@ public class  BolsilloServiceImpl implements BolsilloService {
 
     @Override
     public void deleteBolsillo(Integer id) {
-        bolsilloRepository.deleteById(id);
+        Optional<Bolsillo> bolsilloOptional = bolsilloRepository.findById(id);
+        if (bolsilloOptional.isPresent()) {
+            bolsilloRepository.deleteById(id);
+        } else {
+            throw new BolsilloNoEncontradoException("No se encontró la cuenta bancaria con ID: " + id);
+        }
     }
 }
 

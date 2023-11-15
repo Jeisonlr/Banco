@@ -1,4 +1,4 @@
-package com.example.ProyectoBancoJPA;
+package com.example.ProyectoBancoJPA.DB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
