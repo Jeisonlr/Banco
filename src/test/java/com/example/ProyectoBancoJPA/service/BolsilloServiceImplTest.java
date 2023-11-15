@@ -1,4 +1,4 @@
-package com.example.ProyectoBancoJPA.TestService;
+package com.example.ProyectoBancoJPA.service;
 import com.example.ProyectoBancoJPA.exceptions.BolsilloNoEncontradoException;
 import com.example.ProyectoBancoJPA.exceptions.ClienteNoEncontradoException;
 import com.example.ProyectoBancoJPA.model.Bolsillo;
