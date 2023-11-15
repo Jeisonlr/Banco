@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClienteRepository extends CrudRepository<Cliente, Integer> {
+    boolean existsByCedula(String cedula);
 }

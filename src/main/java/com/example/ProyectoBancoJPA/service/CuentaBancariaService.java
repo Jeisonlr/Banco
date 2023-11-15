@@ -1,4 +1,5 @@
 package com.example.ProyectoBancoJPA.service;
+import com.example.ProyectoBancoJPA.exceptions.CuentaNoEncontradaException;
 import com.example.ProyectoBancoJPA.model.CuentaBancaria;
 
 import java.util.List;
@@ -10,10 +11,10 @@ public interface CuentaBancariaService {
 
     CuentaBancaria getCuentaBancariaById(Integer idCuenta);
 
-    CuentaBancaria updateCuentaBancaria(Integer idCuenta, CuentaBancaria cuentaBancariaActualizada);
+    CuentaBancaria updateCuentaBancaria(Integer idCuenta, CuentaBancaria cuentaBancariaActualizada) throws CuentaNoEncontradaException;
 
     void deleteCuentaBancaria(Integer idCuenta);
 
 
-    // Agrega otros métodos para transferencias de fondos, pagos, etc.
+
 }

@@ -21,31 +21,32 @@ public class BolsilloController {
         this.bolsilloService = bolsilloService;
     }
 
-    @Operation(summary = "Crear un bolsillo nuevo")
+    @Operation(summary = "Crear un nuevo bolsillo")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Crear bolsillo nuevo",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Bolsillo.class)) }),
-            @ApiResponse(responseCode = "400", description = "Parametros invalidos",
+            @ApiResponse(responseCode = "201", description = "Bolsillo creado exitosamente",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Bolsillo.class))),
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor",
                     content = @Content)})
     @PostMapping("/create")
-    public Bolsillo crearBolsillo(@RequestBody Bolsillo bolsillo){
+    public Bolsillo crearBolsillo(@RequestBody Bolsillo bolsillo) {
         return this.bolsilloService.createBolsillo(bolsillo);
     }
 
     @Operation(summary = "Obtener todos los bolsillos de una cuenta")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Bolsillos encontrados correctamente",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Bolsillo.class)) }),
-            @ApiResponse(responseCode = "400", description = "Id invalida",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Bolsillo.class))),
+            @ApiResponse(responseCode = "400", description = "Id de la cuenta inválido",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Cuenta bancaria no encontrada",
                     content = @Content)})
     @GetMapping("/{id}")
-    public Bolsillo getBolsilloById(@Parameter(description = "Id de la cuenta bancaria") Integer id) {
+    public Bolsillo getBolsilloById(
+            @Parameter(description = "Id de la cuenta bancaria") @PathVariable Integer id) {
         return bolsilloService.getBolsilloById(id);
     }
 }

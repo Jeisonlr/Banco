@@ -1,16 +1,16 @@
 package com.example.ProyectoBancoJPA.service;
 
+import com.example.ProyectoBancoJPA.exceptions.ClienteNoEncontradoException;
+import com.example.ProyectoBancoJPA.exceptions.CuentaNoEncontradaException;
+import com.example.ProyectoBancoJPA.model.Cliente;
 import com.example.ProyectoBancoJPA.model.CuentaBancaria;
 import com.example.ProyectoBancoJPA.repository.CuentaBancariaRepository;
-import com.example.ProyectoBancoJPA.dto.CuentaBancariaDTO;
-import com.example.ProyectoBancoJPA.model.Cliente;
 import com.example.ProyectoBancoJPA.repository.ClienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 public class CuentaBancariaServiceImpl implements CuentaBancariaService {
@@ -23,7 +23,17 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
     }
 
     @Override
-    public CuentaBancaria createCuentaBancaria(CuentaBancaria cuentaBancaria) {
+    public CuentaBancaria createCuentaBancaria(CuentaBancaria cuentaBancaria) throws ArithmeticException {
+        // Validar que el balance sea mayor o igual a $20000
+        BigDecimal saldoMinimo = new BigDecimal("20000");
+        if (cuentaBancaria.getBalance().compareTo(saldoMinimo) < 0) {
+            throw new ArithmeticException("El saldo mínimo requerido es de $20000");
+        }
+        Cliente clienteAsociado = cuentaBancaria.getCliente();
+        if (clienteAsociado == null || clienteRepository.findById(clienteAsociado.getId()).isEmpty()) {
+            throw new ClienteNoEncontradoException("Es necesario un Cliente para crear la cuenta bancaria");
+        }
+
         return cuentaBancariaRepository.save(cuentaBancaria);
     }
 
@@ -34,11 +44,12 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
 
     @Override
     public CuentaBancaria getCuentaBancariaById(Integer idCuenta) {
-        return cuentaBancariaRepository.findById(idCuenta).orElse(null);
+        return cuentaBancariaRepository.findById(idCuenta)
+                .orElseThrow(() -> new CuentaNoEncontradaException("No se encontró la cuenta bancaria con ID: " + idCuenta));
     }
 
     @Override
-    public CuentaBancaria updateCuentaBancaria(Integer idCuenta, CuentaBancaria cuentaBancariaActualizada) {
+    public CuentaBancaria updateCuentaBancaria(Integer idCuenta, CuentaBancaria cuentaBancariaActualizada) throws CuentaNoEncontradaException {
         Optional<CuentaBancaria> cuentaBancariaExistenteOptional = cuentaBancariaRepository.findById(idCuenta);
 
         if (cuentaBancariaExistenteOptional.isPresent()) {
@@ -49,13 +60,23 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
 
             return cuentaBancariaRepository.save(cuentaBancariaExistente);
         } else {
-            return null; // Manejo de error si la cuenta bancaria no se encuentra.
+            throw new CuentaNoEncontradaException("No se encontró la cuenta bancaria con ID: " + idCuenta);
         }
     }
 
     @Override
-    public void deleteCuentaBancaria(Integer idCuenta) {
-        cuentaBancariaRepository.deleteById(idCuenta);
+    public void deleteCuentaBancaria(Integer idCuenta)  {
+        Optional<CuentaBancaria> cuentaBancariaOptional = cuentaBancariaRepository.findById(idCuenta);
+
+        if (cuentaBancariaOptional.isPresent()) {
+            CuentaBancaria cuentaBancaria = cuentaBancariaOptional.get();
+
+            if (cuentaBancaria.getBalance().compareTo(BigDecimal.ZERO) != 0) {
+                throw new ArithmeticException("No debe haber fondos en la cuenta para su eliminación");
+            }
+            cuentaBancariaRepository.delete(cuentaBancaria);
+        } else {
+            throw new CuentaNoEncontradaException("No se encontró la cuenta bancaria con ID: " + idCuenta);
+        }
     }
 }
-
