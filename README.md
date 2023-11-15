@@ -76,7 +76,7 @@ Siga los siguientes pasos para ejecutar el proyecto en su entorno local:
 
 4. Compile y ejecute la aplicación Spring Boot.
 
-5. Abra un navegador web y acceda a la documentación de la API a través de Swagger (si está habilitado).
+5. Abra un navegador web y acceda a la documentación de la API a través de Swagger.
 
 ## Estructura del Proyecto
 El proyecto está estructurado de la siguiente manera:
