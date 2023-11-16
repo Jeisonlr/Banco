@@ -1,6 +1,6 @@
 package com.example.ProyectoBancoJPA.config;
 
-import com.example.ProyectoBancoJPA.repository.UserRepository;
+import com.example.ProyectoBancoJPA.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +42,7 @@ public class ApplicationConfig {
     @Bean
     public UserDetailsService userDetailService() {
         return username -> userRepository.findByUsername(username)
-                .orElseThrow(()-> new UsernameNotFoundException("User not fournd"));
+                .orElseThrow(()-> new UsernameNotFoundException("User not found"));
     }
 
 }

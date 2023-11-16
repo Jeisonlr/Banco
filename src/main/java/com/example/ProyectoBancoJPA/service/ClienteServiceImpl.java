@@ -21,6 +21,9 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente createCliente(Cliente cliente) throws ApiRequestException {
+        Random random = new Random();
+        Integer id = random.nextInt(10001);
+
         if(cliente.getNombre()==null){
             throw new ApiRequestException("El Cliente Debe Tener Un Nombre");
         }else if(cliente.getApellido()==null){
@@ -31,7 +34,17 @@ public class ClienteServiceImpl implements ClienteService {
         if (clienteRepository.existsByCedula(cliente.getCedula())) {
             throw new ApiRequestException("La Cédula Es Invalida.");
         }
-        return clienteRepository.save(cliente);
+
+        Cliente clienteEnviado = new Cliente(
+                id,
+                cliente.getCedula(),
+                cliente.getNombre(),
+                cliente.getApellido(),
+                cliente.getEdad(),
+                cliente.getCorreo(),
+                cliente.getMunicipio(),
+                cliente.getTelefono());
+        return clienteRepository.save(clienteEnviado);
     }
 
     @Override

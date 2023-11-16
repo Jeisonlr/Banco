@@ -1,28 +1,23 @@
-package com.example.ProyectoBancoJPA.controller;
+package com.example.ProyectoBancoJPA.Auth;
 
-import com.example.ProyectoBancoJPA.Auth.AuthResponse;
 import com.example.ProyectoBancoJPA.Request.LoginRequest;
 import com.example.ProyectoBancoJPA.Request.RegisterRequest;
-import com.example.ProyectoBancoJPA.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
-
-    @Autowired
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
 
     @Operation(summary = "Iniciar sesión")
     @ApiResponses(value = {
@@ -34,7 +29,8 @@ public class AuthController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor",
                     content = @Content)})
     @PostMapping(value = "login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request)
+    {
         return ResponseEntity.ok(authService.login(request));
     }
 
@@ -47,8 +43,10 @@ public class AuthController {
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor",
                     content = @Content)})
+
     @PostMapping(value = "register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request)
+    {
         return ResponseEntity.ok(authService.register(request));
     }
 }

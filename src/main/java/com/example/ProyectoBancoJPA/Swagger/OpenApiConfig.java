@@ -18,18 +18,9 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Your API Title")
+                        .title("Sistema de gestión Bancaria")
                         .version("1.0")
                 );
     }
 
-    @RestController
-    @RequestMapping("/api")
-    public class ApiController {
-
-        @GetMapping("/hello")
-        public String hello(@AuthenticationPrincipal Jwt jwt) {
-            return "Hello, " +  "!";
-        }
-    }
 }
