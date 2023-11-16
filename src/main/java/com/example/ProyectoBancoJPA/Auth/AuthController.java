@@ -19,6 +19,7 @@ public class AuthController {
 
     private final AuthService authService;
 
+    //Swagger
     @Operation(summary = "Iniciar sesión")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Inicio de sesión exitoso",
@@ -28,6 +29,7 @@ public class AuthController {
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor",
                     content = @Content)})
+
     @PostMapping(value = "login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request)
     {
@@ -43,6 +45,7 @@ public class AuthController {
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor",
                     content = @Content)})
+
 
     @PostMapping(value = "register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request)

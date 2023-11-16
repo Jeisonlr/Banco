@@ -48,8 +48,8 @@ public class ClienteController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor",
                     content = @Content)})
     @GetMapping("/{cedula}")
-    public ResponseEntity<Cliente> getClienteByCedula(@PathVariable Integer cedula) {
-        Cliente cliente = clienteService.getClienteById(cedula);
+    public ResponseEntity<Cliente> getClienteById(@PathVariable Integer id) {
+        Cliente cliente = clienteService.getClienteById(id);
         return new ResponseEntity<>(cliente, HttpStatus.OK);
     }
 
@@ -65,8 +65,8 @@ public class ClienteController {
     @PostMapping("/create")
     public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {
         try {
-            Cliente nuevoCliente = this.clienteService.createCliente(cliente);
-            return new ResponseEntity<>(nuevoCliente, HttpStatus.CREATED);
+            this.clienteService.createCliente(cliente);
+            return new ResponseEntity<>(cliente, HttpStatus.CREATED);
         } catch (ApiRequestException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
